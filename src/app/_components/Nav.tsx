@@ -29,9 +29,9 @@ export const Nav = ({
 				<nav className='hidden items-center gap-8 text-sm lg:flex'>
 					<Link href='/'>Home</Link>
 					<Link href='/for-business'>For Businesses</Link>
-					<Link href='#'>For Developers</Link>
-					<Link href='#'>Contact Us</Link>
-					<Link href='#'>FAQs</Link>
+					<Link href='/for-developers'>For Developers</Link>
+					<Link href='/contact-us'>Contact Us</Link>
+					<Link href='/faqs'>FAQs</Link>
 				</nav>
 
 				<div className='hidden items-center gap-4 sm:flex'>
@@ -75,9 +75,9 @@ export const Nav = ({
 					<nav className='flex flex-col gap-3'>
 						<Link href='/'>Home</Link>
 						<Link href='/for-business'>For Businesses</Link>
-						<Link href='#'>For Developers</Link>
-						<Link href='#'>Contact Us</Link>
-						<Link href='#'>FAQs</Link>
+						<Link href='/for-developers'>For Developers</Link>
+						<Link href='/contact-us'>Contact Us</Link>
+						<Link href='/faqs'>FAQs</Link>
 					</nav>
 					<div className='mt-4 flex flex-col gap-3'>
 						<button className='w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-white'>
