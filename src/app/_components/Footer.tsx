@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import footerLogo from "@/assets/images/logo-white.png";
 import ndprlogo from "@/assets/images/footer-logo.png";
 
@@ -82,9 +83,17 @@ export function Footer() {
 					<div className='space-y-5'>
 						<h4 className='font-semibold text-white'>Products</h4>
 						<ul className='space-y-4 text-slate-300'>
-							<li>Cards Issuing</li>
+							<li>
+								<Link href='/cards-issuing' className='hover:text-white'>
+									Cards Issuing
+								</Link>
+							</li>
 							<li>Bills Payments</li>
-							<li>Digital Payments</li>
+							<li>
+								<Link href='/digital-payments' className='hover:text-white'>
+									Digital Payments
+								</Link>
+							</li>
 							<li>Stablecoin Rails</li>
 							<li>Savings as a Service</li>
 							<li>Payment Link</li>
