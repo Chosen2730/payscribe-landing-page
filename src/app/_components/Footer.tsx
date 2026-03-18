@@ -111,11 +111,23 @@ export function Footer() {
 					<div className='space-y-5'>
 						<h4 className='font-semibold text-white'>Resources</h4>
 						<ul className='space-y-4 text-slate-300'>
-							<li>FAQs</li>
+							<li>
+								<Link href='/faqs' className='hover:text-white'>
+									FAQs
+								</Link>
+							</li>
 							<li>Compliance</li>
 							<li>Book a demo</li>
-							<li>Use case</li>
-							<li>Case-studies</li>
+							<li>
+								<Link href='/use-case' className='hover:text-white'>
+									Use case
+								</Link>
+							</li>
+							<li>
+								<Link href='/case-studies' className='hover:text-white'>
+									Case-studies
+								</Link>
+							</li>
 						</ul>
 					</div>
 

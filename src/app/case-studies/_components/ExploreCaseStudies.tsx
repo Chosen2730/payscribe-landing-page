@@ -1,0 +1,66 @@
+import Image from "next/image";
+import Link from "next/link";
+import connekt from "@/assets/images/connekit.png";
+import gamekit from "@/assets/images/gamekit.png";
+
+const cards = [
+	{
+		image: gamekit,
+		title: "Gamepride",
+		description: "Level up your gaming experience, win cash rewards!",
+		bg: "bg-[#E6F8F0]",
+		buttonBg: "bg-[#00C853]",
+	},
+	{
+		image: connekt,
+		title: "Connekit-eo",
+		description: "ISP and dashboard virtual IA assistance issuance.",
+		bg: "bg-[#E6F7FB]",
+		buttonBg: "bg-[#00ACC1]",
+	},
+];
+
+const ExploreCaseStudies = () => {
+	return (
+		<section className='bg-white py-20'>
+			<div className='mx-auto container px-5'>
+				<h2 className='text-left text-2xl font-semibold text-secondary sm:text-3xl'>
+					Explore case studies
+				</h2>
+
+				<div className='mt-10 grid gap-8 md:grid-cols-2'>
+					{cards.map((card) => (
+						<div
+							key={card.title}
+							className={`rounded-3xl ${card.bg} px-10 py-10 text-center shadow-sm`}
+						>
+							<div className='mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl'>
+								<Image
+									src={card.image}
+									alt={card.title}
+									className='h-full w-full object-contain'
+								/>
+							</div>
+							<h3 className='text-lg font-semibold text-secondary'>
+								{card.title}
+							</h3>
+							<p className='mt-3 text-sm leading-relaxed text-slate-600'>
+								{card.description}
+							</p>
+							<div className='mt-8 flex justify-center'>
+								<Link
+									href='/contact-us'
+									className={`inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-semibold text-white ${card.buttonBg}`}
+								>
+									Get Started
+								</Link>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+	);
+};
+
+export default ExploreCaseStudies;
