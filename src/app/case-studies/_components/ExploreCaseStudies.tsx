@@ -10,6 +10,7 @@ const cards = [
 		description: "Level up your gaming experience, win cash rewards!",
 		bg: "bg-[#E6F8F0]",
 		buttonBg: "bg-[#00C853]",
+		href: "/case-studies/gamepride",
 	},
 	{
 		image: connekt,
@@ -17,6 +18,7 @@ const cards = [
 		description: "ISP and dashboard virtual IA assistance issuance.",
 		bg: "bg-[#E6F7FB]",
 		buttonBg: "bg-[#00ACC1]",
+		href: "/contact-us",
 	},
 ];
 
@@ -49,7 +51,7 @@ const ExploreCaseStudies = () => {
 							</p>
 							<div className='mt-8 flex justify-center'>
 								<Link
-									href='/contact-us'
+									href={card.href}
 									className={`inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-semibold text-white ${card.buttonBg}`}
 								>
 									Get Started

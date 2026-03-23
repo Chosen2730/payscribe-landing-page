@@ -32,6 +32,13 @@ export const Nav = ({
 					<Link href='/for-developers'>For Developers</Link>
 					<Link href='/contact-us'>Contact Us</Link>
 					<Link href='/faqs'>FAQs</Link>
+					<Link
+						href='https://blog.payscribe.ng/'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						Blog
+					</Link>
 				</nav>
 
 				<div className='hidden items-center gap-4 sm:flex'>
@@ -78,6 +85,13 @@ export const Nav = ({
 						<Link href='/for-developers'>For Developers</Link>
 						<Link href='/contact-us'>Contact Us</Link>
 						<Link href='/faqs'>FAQs</Link>
+						<Link
+							href='https://blog.payscribe.ng/'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							Blog
+						</Link>
 					</nav>
 					<div className='mt-4 flex flex-col gap-3'>
 						<button className='w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-white'>

@@ -94,10 +94,18 @@ export function Footer() {
 									Digital Payments
 								</Link>
 							</li>
-							<li>Stablecoin Rails</li>
-							<li>Savings as a Service</li>
-							<li>Payment Link</li>
-							<li>Invoice</li>
+							<li><Link href='/stable-coin-rails' className='hover:text-white'>Stablecoin Rails</Link></li>
+							<li><Link href='/savings-as-a-service' className='hover:text-white'>Savings as a Service</Link></li>
+							<li>
+								<Link href='/payment-link' className='hover:text-white'>
+									Payment Link
+								</Link>
+							</li>
+							<li>
+								<Link href='/invoice' className='hover:text-white'>
+									Invoice
+								</Link>
+							</li>
 						</ul>
 					</div>
 
@@ -134,10 +142,27 @@ export function Footer() {
 					<div className='space-y-5'>
 						<h4 className='font-semibold text-white'>Company</h4>
 						<ul className='space-y-4 text-slate-300'>
-							<li>Blog</li>
+							<li>
+								<Link
+									href='https://blog.payscribe.ng/'
+									target='_blank'
+									rel='noopener noreferrer'
+									className='hover:text-white'
+								>
+									Blog
+								</Link>
+							</li>
 							<li>Press</li>
-							<li>Privacy Policy</li>
-							<li>Terms and Conditions</li>
+							<li>
+								<Link href='/privacy-policy' className='hover:text-white'>
+									Privacy Policy
+								</Link>
+							</li>
+							<li>
+								<Link href='/terms-and-conditions' className='hover:text-white'>
+									Terms and Conditions
+								</Link>
+							</li>
 						</ul>
 					</div>
 				</div>
