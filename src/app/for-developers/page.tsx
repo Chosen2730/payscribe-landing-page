@@ -8,7 +8,7 @@ import StartBuilding from "../_components/startBuilding";
 export default function ForDevelopersPage() {
 	return (
 		<div className='min-h-screen bg-secondary text-white'>
-			<Nav variant='white' />
+			<Nav />
 			<ForDevelopersHero />
 			<WhoBuildsSection />
 			<DevelopersCanDoSection />

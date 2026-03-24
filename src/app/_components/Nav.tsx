@@ -16,17 +16,20 @@ export const Nav = ({
 	const toggle = () => setOpen((prev) => !prev);
 
 	return (
-		<header className='sticky top-0 z-40 w-full backdrop-blur'>
+		<header className='sticky top-0 z-40 w-full bg-white/50 backdrop-blur-2xl supports-backdrop-filter:bg-white/90'>
 			<div className='mx-auto container flex items-center justify-between py-6 px-5'>
-				<div className='flex items-center gap-2 text-xl font-semibold'>
+				<Link
+					href='/'
+					className='flex items-center gap-2 text-xl font-semibold'
+				>
 					<Image
 						src={logo}
 						alt='Payscribe Logo'
 						className='w-[120px] object-contain'
 					/>
-				</div>
+				</Link>
 
-				<nav className='hidden items-center gap-8 text-sm lg:flex'>
+				<nav className='hidden items-center gap-8 text-sm lg:flex text-slate-700'>
 					<Link href='/'>Home</Link>
 					<Link href='/for-business'>For Businesses</Link>
 					<Link href='/for-developers'>For Developers</Link>
