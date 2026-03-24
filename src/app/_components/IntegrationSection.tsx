@@ -108,7 +108,7 @@ export function IntegrationSection() {
 				>
 					<ChevronLeftIcon />
 				</button>
-				{/* Right arrow */}
+				{/* Right arrow. */}
 				<motion.div
 					className='overflow-hidden rounded-3xl text-white shadow-xl p-8'
 					animate={{
@@ -163,9 +163,17 @@ export function IntegrationSection() {
 							<AnimatePresence mode='wait' initial={false}>
 								<motion.div
 									key={`image-${activeIndex}`}
-									initial={{ opacity: 0, x: direction > 0 ? 28 : -28, scale: 0.98 }}
+									initial={{
+										opacity: 0,
+										x: direction > 0 ? 28 : -28,
+										scale: 0.98,
+									}}
 									animate={{ opacity: 1, x: 0, scale: 1 }}
-									exit={{ opacity: 0, x: direction > 0 ? -28 : 28, scale: 0.98 }}
+									exit={{
+										opacity: 0,
+										x: direction > 0 ? -28 : 28,
+										scale: 0.98,
+									}}
 									transition={{ duration: 0.4, ease: "easeOut" }}
 								>
 									<Image
