@@ -1,13 +1,27 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import service1 from "@/assets/images/service1.png";
 import service2 from "@/assets/images/service2.png";
+import { inViewFromLeft, inViewFromTop } from "@/lib/animations";
 
 const ServiceSection = () => {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<div className='mt-20  bg-secondary p-5 py-20'>
 			<div className='container grid grid-cols-1 md:grid-cols-2 gap-20 mx-auto'>
-				<div className='bg-[#FFFFFF1A] p-8 hidden rounded-3xl md:flex flex-col gap-20'>
+				<motion.div
+					{...inViewFromLeft({
+						reduced: reducedMotion,
+						delay: 0.1,
+						duration: 2.05,
+						amount: 0.35,
+					})}
+					className='bg-[#FFFFFF1A] p-8 hidden rounded-3xl md:flex flex-col gap-20'
+				>
 					<Image
 						src={service1}
 						alt='service'
@@ -22,8 +36,16 @@ const ServiceSection = () => {
 						width={578}
 						height={460}
 					/>
-				</div>
-				<div className='flex flex-col gap-12'>
+				</motion.div>
+				<motion.div
+					{...inViewFromTop({
+						reduced: reducedMotion,
+						delay: 0.5,
+						duration: 2.1,
+						amount: 0.32,
+					})}
+					className='flex flex-col gap-12'
+				>
 					{/* First service block */}
 					<div>
 						<p className='text-xs font-semibold uppercase tracking-wider text-slate-400'>
@@ -103,7 +125,7 @@ const ServiceSection = () => {
 							Create A Free Account
 						</button>
 					</div>
-				</div>
+				</motion.div>
 			</div>
 		</div>
 	);

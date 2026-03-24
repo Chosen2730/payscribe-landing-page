@@ -1,9 +1,12 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import clock from "@/assets/icons/clock.svg";
 import stream from "@/assets/icons/streamlined.svg";
 import gain from "@/assets/icons/gain.svg";
 import tag from "@/assets/icons/tag.svg";
+import { inViewFadeUp, inViewFromTop } from "@/lib/animations";
 
 const cards = [
 	{
@@ -33,19 +36,35 @@ const cards = [
 ];
 
 const WhyBusinessSection = () => {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='px-5 py-20 bg-white'>
 			<div className='mx-auto max-w-6xl'>
-				<h2 className='text-center text-2xl font-bold text-secondary sm:text-3xl'>
+				<motion.h2
+					{...inViewFromTop({ reduced: reducedMotion, delay: 0.08, duration: 0.95 })}
+					className='text-center text-2xl font-bold text-secondary sm:text-3xl'
+				>
 					Why Businesses And Consumers Love Payscribe?
-				</h2>
+				</motion.h2>
 				<div className='mt-12 grid sm:grid-cols-2'>
 					{cards.map((card, index) => (
-						<div
+						<motion.div
 							key={card.title}
+							{...inViewFadeUp({
+								reduced: reducedMotion,
+								delay: 0.16 + index * 0.1,
+								duration: 0.9,
+								amount: 0.2,
+							})}
 							className={`flex flex-col items-center py-20 justify-center text-center px-6  lg:p-8 ${index === 0 || index === 3 ? "bg-[#B8D6F866]" : "bg-white"}`}
 						>
-							<div className='mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10'>
+							<motion.div
+								whileHover={reducedMotion ? undefined : { scale: 1.04 }}
+								transition={{ duration: 0.25 }}
+								className='mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10'
+							>
 								<Image
 									src={card.icon}
 									alt=''
@@ -53,14 +72,14 @@ const WhyBusinessSection = () => {
 									width={28}
 									height={28}
 								/>
-							</div>
+							</motion.div>
 							<h3 className='text-lg font-semibold text-secondary'>
 								{card.title}
 							</h3>
 							<p className='mt-3 text-sm leading-relaxed text-slate-600'>
 								{card.description}
 							</p>
-						</div>
+						</motion.div>
 					))}
 				</div>
 			</div>

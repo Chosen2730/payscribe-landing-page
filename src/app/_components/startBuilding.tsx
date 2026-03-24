@@ -1,12 +1,21 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import cardBg from "@/assets/images/card-bg.png";
+import { inViewZoom } from "@/lib/animations";
 
 const StartBuilding = () => {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='relative bg-primary overflow-hidden py-20 md:py-28'>
 			<div className='container relative mx-auto flex flex-col items-start px-5 md:flex-row md:items-center md:justify-between'>
-				<div className='relative z-10 max-w-xl'>
+				<motion.div
+					{...inViewZoom({ reduced: reducedMotion, delay: 0.1, duration: 1 })}
+					className='relative z-10 max-w-xl'
+				>
 					<h2 className='text-3xl font-bold text-white md:text-4xl'>
 						Start Building Today
 					</h2>
@@ -24,7 +33,7 @@ const StartBuilding = () => {
 							Contact Us
 						</button>
 					</div>
-				</div>
+				</motion.div>
 			</div>
 			<Image
 				src={cardBg}

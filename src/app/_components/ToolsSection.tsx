@@ -1,13 +1,33 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import {
+	inViewFadeUp,
+	inViewFromBottom,
+	inViewFromRight,
+	subtleFloat,
+} from "@/lib/animations";
+import styles from "./ToolsSection.module.css";
+
 export function ToolsSection() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='mx-auto py-20 w-full container px-5'>
-			<h2 className='text-3xl text-secondary sm:text-4xl font-mediums'>
+			<motion.h2
+				{...inViewFadeUp({ reduced: reducedMotion, delay: 0.05 })}
+				className='text-3xl text-secondary sm:text-4xl font-medium'
+			>
 				Comprehensive Financial Tools for All Users
-			</h2>
+			</motion.h2>
 
 			<div className='mt-10 grid gap-6 lg:grid-cols-2 lg:grid-rows-2'>
 				{/* For Businesses card */}
-				<div className='row-span-2 flex flex-col rounded-3xl bg-[#E6F0FF] p-8 text-left text-secondary'>
+				<motion.div
+					{...inViewFromBottom({ reduced: reducedMotion, delay: 0.1 })}
+					className={`${styles.cardBase} row-span-2 flex flex-col rounded-3xl bg-[#E6F0FF] p-8 text-left text-secondary`}
+				>
 					<button className='w-fit rounded-full border border-primary/50 bg-primary/5 px-4 py-1.5 text-xs font-semibold tracking-wide text-primary'>
 						FOR BUSINESSES
 					</button>
@@ -21,11 +41,16 @@ export function ToolsSection() {
 						financial services, ensuring that everyone has the opportunity to
 						participate in the global economy.
 					</p>
-					<button className='mt-6 w-fit rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-white'>
+					<button
+						className={`${styles.ctaButton} mt-6 w-fit rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-white`}
+					>
 						Start accepting payments
 					</button>
 					<div className='mt-auto pt-8'>
-						<div className='flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-sm'>
+						<motion.div
+							{...subtleFloat(reducedMotion)}
+							className='flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-sm'
+						>
 							<div className='flex items-center gap-3'>
 								<div className='grid h-8 w-8 place-items-center rounded-full bg-primary'>
 									<svg
@@ -46,17 +71,23 @@ export function ToolsSection() {
 							<span className='text-lg font-bold tracking-widest text-slate-400'>
 								···
 							</span>
-						</div>
+						</motion.div>
 					</div>
-				</div>
+				</motion.div>
 
 				{/* For Freelancers card */}
-				<div className='rounded-3xl bg-primary p-8 text-left text-white'>
+				<motion.div
+					{...inViewFromRight({ reduced: reducedMotion, delay: 0.18 })}
+					className={`${styles.cardBase} rounded-3xl bg-primary p-8 text-left text-white`}
+				>
 					<div className='flex items-center justify-between'>
 						<button className='w-fit rounded-full border border-white/30 px-4 py-1.5 text-xs font-bold tracking-wide text-white'>
 							FOR FREELANCERS
 						</button>
-						<div className='flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-secondary shadow'>
+						<motion.div
+							{...subtleFloat(reducedMotion, 0.3)}
+							className='flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-secondary shadow'
+						>
 							<div className='h-6 w-6 overflow-hidden rounded-full bg-slate-300'>
 								<svg
 									className='h-full w-full text-slate-500'
@@ -67,7 +98,7 @@ export function ToolsSection() {
 								</svg>
 							</div>
 							Tinu paid 🤑
-						</div>
+						</motion.div>
 					</div>
 					<h3 className='mt-5 text-xl font-semibold'>
 						Focus on Your Craft, We&apos;ll Handle the Rest!
@@ -77,15 +108,21 @@ export function ToolsSection() {
 						payment links, invoices. Stay organized and free up your time to
 						grow your skills and passion.
 					</p>
-				</div>
+				</motion.div>
 
 				{/* For Individuals card */}
-				<div className='relative rounded-3xl bg-[#020413] p-8 text-left text-white'>
+				<motion.div
+					{...inViewFromRight({ reduced: reducedMotion, delay: 0.28 })}
+					className={`${styles.cardBase} relative rounded-3xl bg-[#020413] p-8 text-left text-white`}
+				>
 					<div className='flex items-start justify-between'>
 						<button className='w-fit rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold tracking-wide text-white'>
 							FOR INDIVIDUALS
 						</button>
-						<div className='rounded-2xl bg-white px-5 py-3 text-secondary shadow-md'>
+						<motion.div
+							{...subtleFloat(reducedMotion, 0.55)}
+							className='rounded-2xl bg-white px-5 py-3 text-secondary shadow-md'
+						>
 							<div className='flex items-center justify-between gap-6'>
 								<div className='flex items-center gap-2'>
 									<div className='grid h-8 w-8 place-items-center rounded-full bg-primary'>
@@ -108,7 +145,7 @@ export function ToolsSection() {
 									···
 								</span>
 							</div>
-						</div>
+						</motion.div>
 					</div>
 					<h3 className='mt-5 text-xl font-semibold'>
 						Take Control of Your Finances.
@@ -117,7 +154,7 @@ export function ToolsSection() {
 						Easily manage your finances with Payscribe. Pay recurring bills,
 						make both local and international payments. Stay in control!
 					</p>
-				</div>
+				</motion.div>
 			</div>
 		</section>
 	);
