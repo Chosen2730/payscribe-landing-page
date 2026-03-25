@@ -1,6 +1,7 @@
 import Image from "next/image";
 import featuredImage from "@/assets/images/blog.jpg";
 import latestImage from "@/assets/images/digital.jpg";
+import Link from "next/link";
 
 const latestPosts = [
 	{
@@ -27,7 +28,8 @@ export function BlogFeaturedSection() {
 	return (
 		<section className='bg-white px-5 py-20'>
 			<div className='mx-auto grid container gap-7 lg:grid-cols-[1.7fr_1fr]'>
-				<article className='relative overflow-hidden rounded-[20px]'>
+				<Link href='/blog/gamepride' className='block'>
+					<article className='relative overflow-hidden rounded-[20px]'>
 					<div className='relative h-[320px] sm:h-[470px]'>
 						<Image
 							src={featuredImage}
@@ -45,7 +47,8 @@ export function BlogFeaturedSection() {
 							Feb 8th &nbsp; • &nbsp; 10 mins read &nbsp; • &nbsp; 500 views
 						</p>
 					</div>
-				</article>
+					</article>
+				</Link>
 
 				<div>
 					<h4 className='mb-5 text-2xl font-semibold text-secondary'>

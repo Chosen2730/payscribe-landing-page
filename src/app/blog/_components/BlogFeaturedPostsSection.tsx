@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import blogImg from "@/assets/images/blog.jpg";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import Link from "next/link";
 
 type Category = "All" | "Company" | "Product" | "Finance" | "API";
 
@@ -152,10 +153,8 @@ export function BlogFeaturedPostsSection(): JSX.Element {
 
 				<div className='mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
 					{filtered.map((post) => (
-						<article
-							key={post.id}
-							className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm'
-						>
+						<Link key={post.id} href='/blog/gamepride' className='block'>
+							<article className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md'>
 							<div className='relative h-[180px] w-full'>
 								<Image src={blogImg} alt={post.title} fill className='object-cover' />
 							</div>
@@ -177,7 +176,8 @@ export function BlogFeaturedPostsSection(): JSX.Element {
 									{post.views}
 								</p>
 							</div>
-						</article>
+							</article>
+						</Link>
 					))}
 				</div>
 			</div>

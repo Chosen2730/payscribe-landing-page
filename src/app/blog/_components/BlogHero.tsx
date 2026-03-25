@@ -1,5 +1,6 @@
 import Image from "next/image";
 import blogCover from "@/assets/images/digital.jpg";
+import Link from "next/link";
 
 export function BlogHero() {
 	return (
@@ -15,7 +16,8 @@ export function BlogHero() {
 					</p>
 				</div>
 
-				<article className='mt-10 rounded-[22px]'>
+				<Link href='/blog/gamepride' className='block'>
+					<article className='mt-10 rounded-[22px]'>
 					<div className='overflow-hidden rounded-[22px]'>
 						<Image
 							src={blogCover}
@@ -30,7 +32,8 @@ export function BlogHero() {
 					<p className='mt-3 text-base text-slate-500'>
 						4 Min &nbsp;&middot;&nbsp; August 19, 2022
 					</p>
-				</article>
+					</article>
+				</Link>
 			</div>
 		</section>
 	);
