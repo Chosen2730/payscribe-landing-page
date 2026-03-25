@@ -143,12 +143,7 @@ export function Footer() {
 						<h4 className='font-semibold text-white'>Company</h4>
 						<ul className='space-y-4 text-slate-300'>
 							<li>
-								<Link
-									href='https://blog.payscribe.ng/'
-									target='_blank'
-									rel='noopener noreferrer'
-									className='hover:text-white'
-								>
+								<Link href='/blog' className='hover:text-white'>
 									Blog
 								</Link>
 							</li>

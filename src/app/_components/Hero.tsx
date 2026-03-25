@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import styles from "./Hero.module.css";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 import left1 from "@/assets/images/left1.png";
 import left2 from "@/assets/images/left2.png";
@@ -12,47 +12,57 @@ import right3 from "@/assets/images/right3.png";
 
 export function Hero() {
 	const heroRef = useRef<HTMLElement | null>(null);
-	const hasBeenInView = useRef(false);
-	const [animationCycle, setAnimationCycle] = useState(0);
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
 
-	useEffect(() => {
-		const node = heroRef.current;
-		if (!node) return;
+	const { scrollYProgress } = useScroll({
+		target: heroRef,
+		offset: ["start end", "end start"],
+	});
 
-		const observer = new IntersectionObserver(
-			([entry]) => {
-				if (entry.isIntersecting) {
-					if (!hasBeenInView.current) {
-						setAnimationCycle((prev) => prev + 1);
-						hasBeenInView.current = true;
-					}
-				} else {
-					hasBeenInView.current = false;
-				}
-			},
-			{ threshold: 0.35 }
-		);
+	const leftParallaxY = useTransform(scrollYProgress, [0, 1], reducedMotion ? [0, 0] : [24, -24]);
+	const rightParallaxY = useTransform(scrollYProgress, [0, 1], reducedMotion ? [0, 0] : [32, -32]);
+	const centerParallaxY = useTransform(scrollYProgress, [0, 1], reducedMotion ? [0, 0] : [18, -18]);
+	const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-		observer.observe(node);
-		return () => observer.disconnect();
-	}, []);
+	const revealTransition = {
+		duration: 0.85,
+		ease: smoothEase,
+	};
+
+	const getCardMotion = (delay: number) =>
+		reducedMotion
+			? {}
+			: {
+					initial: { opacity: 0, y: -70, scale: 0.95, rotateX: 6 },
+					whileInView: { opacity: 1, y: 0, scale: 1, rotateX: 0 },
+					viewport: { once: false, amount: 0.35 },
+					transition: { ...revealTransition, delay },
+				};
 
 	return (
 		<main
 			ref={heroRef}
-			className='relative mx-auto flex w-full flex-col items-center text-center pt-20'
+			className='relative mx-auto flex w-full flex-col items-center overflow-hidden pt-20 text-center'
 			style={{
 				background:
 					"linear-gradient(180deg, #e8f1fc 0%, #f4f8ff 60%, #ffffff 100%)",
 			}}
 		>
+			{!reducedMotion && (
+				<motion.div
+					className='pointer-events-none absolute -top-24 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[#6ea0ff]/20 blur-3xl'
+					animate={{ scale: [1, 1.06, 1], opacity: [0.55, 0.75, 0.55] }}
+					transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+				/>
+			)}
+
 			{/* Left-side cards */}
-			<div className='pointer-events-none absolute left-0 top-0 hidden md:block'>
-				<div
-					key={`left-1-${animationCycle}`}
-					className={`${styles.dropIn} relative h-32 w-48`}
-					style={{ animationDelay: "100ms" }}
-				>
+			<motion.div
+				style={{ y: leftParallaxY }}
+				className='pointer-events-none absolute left-0 top-0 hidden md:block'
+			>
+				<motion.div className='relative h-32 w-48' {...getCardMotion(0.08)}>
 					<Image
 						src={left1}
 						alt='Monthly analytics card'
@@ -60,101 +70,124 @@ export function Hero() {
 						className='object-contain object-left'
 						priority
 					/>
-				</div>
-			</div>
-			<div className='pointer-events-none absolute bottom-0 left-0 hidden md:block'>
-				<div
-					key={`left-2-${animationCycle}`}
-					className={`${styles.dropIn} relative h-52 w-60`}
-					style={{ animationDelay: "220ms" }}
-				>
+				</motion.div>
+			</motion.div>
+			<motion.div
+				style={{ y: leftParallaxY }}
+				className='pointer-events-none absolute bottom-0 left-0 hidden md:block'
+			>
+				<motion.div className='relative h-52 w-60' {...getCardMotion(0.16)}>
 					<Image
 						src={left2}
 						alt='Activity breakdown card'
 						fill
 						className='object-contain object-left'
 					/>
-				</div>
-			</div>
+				</motion.div>
+			</motion.div>
 
-			<div className='pointer-events-none absolute right-0 top-4 hidden  md:block'>
-				<div
-					key={`right-1-${animationCycle}`}
-					className={`${styles.dropIn} relative h-36 w-64`}
-					style={{ animationDelay: "320ms" }}
-				>
+			<motion.div
+				style={{ y: rightParallaxY }}
+				className='pointer-events-none absolute right-0 top-4 hidden  md:block'
+			>
+				<motion.div className='relative h-36 w-64' {...getCardMotion(0.24)}>
 					<Image
 						src={right1}
 						alt='Earned this month card'
 						fill
 						className='object-contain object-right'
 					/>
-				</div>
-			</div>
-			<div className='pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 md:block'>
-				<div
-					key={`right-2-${animationCycle}`}
-					className={`${styles.dropIn} relative h-36 w-64`}
-					style={{ animationDelay: "430ms" }}
-				>
+				</motion.div>
+			</motion.div>
+			<motion.div
+				style={{ y: rightParallaxY }}
+				className='pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 md:block'
+			>
+				<motion.div className='relative h-36 w-64' {...getCardMotion(0.32)}>
 					<Image
 						src={right2}
 						alt='Completed transactions card'
 						fill
 						className='object-contain object-right'
 					/>
-				</div>
-			</div>
-			<div className='pointer-events-none absolute bottom-4 right-0 hidden md:block'>
-				<div
-					key={`right-3-${animationCycle}`}
-					className={`${styles.dropIn} relative h-36 w-64`}
-					style={{ animationDelay: "540ms" }}
-				>
+				</motion.div>
+			</motion.div>
+			<motion.div
+				style={{ y: rightParallaxY }}
+				className='pointer-events-none absolute bottom-4 right-0 hidden md:block'
+			>
+				<motion.div className='relative h-36 w-64' {...getCardMotion(0.4)}>
 					<Image
 						src={right3}
 						alt='Users statistics card'
 						fill
 						className='object-contain object-right'
 					/>
-				</div>
-			</div>
-			<div className='flex flex-col items-center justify-center pb-20'>
-				<h1
-					key={`hero-title-${animationCycle}`}
-					className={`${styles.popIn} max-w-4xl text-balance text-4xl font-medium leading-tight sm:text-5xl`}
-					style={{ animationDelay: "620ms" }}
+				</motion.div>
+			</motion.div>
+			<motion.div
+				style={{ y: centerParallaxY }}
+				className='relative z-10 flex flex-col items-center justify-center pb-20'
+			>
+				<motion.h1
+					{...(reducedMotion
+						? {}
+						: {
+								initial: { opacity: 0, y: 28, filter: "blur(8px)" },
+								whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+								viewport: { once: false, amount: 0.45 },
+								transition: { ...revealTransition, delay: 0.45 },
+							})}
+					className='max-w-4xl text-balance text-4xl font-medium leading-tight sm:text-5xl'
 				>
 					Empowering Businesses with the Future of Financial Innovation.
-				</h1>
-				<p
-					key={`hero-copy-${animationCycle}`}
-					className={`${styles.popIn} mt-6 max-w-3xl text-base leading-relaxed text-slate-600 sm:text-xl`}
-					style={{ animationDelay: "760ms" }}
+				</motion.h1>
+				<motion.p
+					{...(reducedMotion
+						? {}
+						: {
+								initial: { opacity: 0, y: 24, filter: "blur(6px)" },
+								whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+								viewport: { once: false, amount: 0.45 },
+								transition: { ...revealTransition, delay: 0.58 },
+							})}
+					className='mt-6 max-w-3xl text-base leading-relaxed text-slate-600 sm:text-xl'
 				>
 					Payscribe provides businesses with a robust payment infrastructure to
 					securely accept payments, issue USD/NGN cards for seamless
 					cross-border transactions, and deliver a full range of financial
 					services to enhance customer experience.
-				</p>
+				</motion.p>
 
-				<div className='mt-10 flex flex-col gap-4 sm:flex-row'>
-					<button
-						key={`hero-primary-btn-${animationCycle}`}
-						className={`${styles.buttonIn} rounded-full bg-primary px-10 py-4 text-sm font-semibold text-white sm:text-base`}
-						style={{ animationDelay: "900ms" }}
+				<motion.div
+					{...(reducedMotion
+						? {}
+						: {
+								initial: { opacity: 0, y: 20 },
+								whileInView: { opacity: 1, y: 0 },
+								viewport: { once: false, amount: 0.45 },
+								transition: { ...revealTransition, delay: 0.72 },
+							})}
+					className='mt-10 flex flex-col gap-4 sm:flex-row'
+				>
+					<motion.button
+						whileHover={
+							reducedMotion ? undefined : { y: -2, scale: 1.02, boxShadow: "0 14px 30px rgba(33,77,192,0.28)" }
+						}
+						transition={{ duration: 0.22 }}
+						className='rounded-full bg-primary px-10 py-4 text-sm font-semibold text-white sm:text-base'
 					>
 						Create A Free Account
-					</button>
-					<button
-						key={`hero-secondary-btn-${animationCycle}`}
-						className={`${styles.buttonIn} rounded-full bg-blue-100 px-10 py-4 text-sm font-semibold text-primary sm:text-base`}
-						style={{ animationDelay: "1020ms" }}
+					</motion.button>
+					<motion.button
+						whileHover={reducedMotion ? undefined : { y: -2, scale: 1.02 }}
+						transition={{ duration: 0.22 }}
+						className='rounded-full bg-blue-100 px-10 py-4 text-sm font-semibold text-primary sm:text-base'
 					>
 						Book a Demo
-					</button>
-				</div>
-			</div>
+					</motion.button>
+				</motion.div>
+			</motion.div>
 		</main>
 	);
 }
