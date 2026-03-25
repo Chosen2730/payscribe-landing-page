@@ -147,7 +147,11 @@ export function Footer() {
 									Blog
 								</Link>
 							</li>
-							<li>Press</li>
+							<li>
+								<Link href='/press' className='hover:text-white'>
+									Press
+								</Link>
+							</li>
 							<li>
 								<Link href='/privacy-policy' className='hover:text-white'>
 									Privacy Policy

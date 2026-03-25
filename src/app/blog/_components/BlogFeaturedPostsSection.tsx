@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import blogImg from "@/assets/images/blog.jpg";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
@@ -21,8 +21,9 @@ type FeaturedPost = {
 
 const categories: Category[] = ["All", "Company", "Product", "Finance", "API"];
 
-export function BlogFeaturedPostsSection(): JSX.Element {
+export function BlogFeaturedPostsSection() {
 	const [activeCategory, setActiveCategory] = useState<Category>("All");
+	const [page, setPage] = useState(0);
 
 	const posts = useMemo<FeaturedPost[]>(
 		() => [
@@ -101,6 +102,15 @@ export function BlogFeaturedPostsSection(): JSX.Element {
 		return posts.filter((p) => p.category === activeCategory);
 	}, [activeCategory, posts]);
 
+	useEffect(() => {
+		setPage(0);
+	}, [activeCategory]);
+
+	const pageSize = 3;
+	const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+	const safePage = Math.min(page, totalPages - 1);
+	const visible = filtered.slice(safePage * pageSize, safePage * pageSize + pageSize);
+
 	return (
 		<section className='bg-white px-5 py-20'>
 			<div className='mx-auto container'>
@@ -137,14 +147,18 @@ export function BlogFeaturedPostsSection(): JSX.Element {
 						<button
 							type='button'
 							aria-label='Previous'
-							className='grid h-10 w-10 place-items-center rounded-full bg-slate-100 text-slate-700'
+							onClick={() => setPage((p) => Math.max(0, p - 1))}
+							disabled={safePage === 0}
+							className='grid h-10 w-10 place-items-center rounded-full bg-slate-100 text-slate-700 transition disabled:cursor-not-allowed disabled:opacity-40'
 						>
 							<ChevronLeftIcon className='h-5 w-5' />
 						</button>
 						<button
 							type='button'
 							aria-label='Next'
-							className='grid h-10 w-10 place-items-center rounded-full bg-slate-100 text-slate-700'
+							onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+							disabled={safePage >= totalPages - 1}
+							className='grid h-10 w-10 place-items-center rounded-full bg-slate-100 text-slate-700 transition disabled:cursor-not-allowed disabled:opacity-40'
 						>
 							<ChevronRightIcon className='h-5 w-5' />
 						</button>
@@ -152,30 +166,35 @@ export function BlogFeaturedPostsSection(): JSX.Element {
 				</div>
 
 				<div className='mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-					{filtered.map((post) => (
+					{visible.map((post) => (
 						<Link key={post.id} href='/blog/gamepride' className='block'>
 							<article className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md'>
-							<div className='relative h-[180px] w-full'>
-								<Image src={blogImg} alt={post.title} fill className='object-cover' />
-							</div>
-							<div className='p-6'>
-								<p className='text-sm text-slate-500'>
-									<span className='mr-2 align-middle text-[10px] text-amber-500'>
-										●
-									</span>
-									{post.tag}
-								</p>
-								<h3 className='mt-3 text-base font-semibold leading-snug text-secondary'>
-									{post.title}
-								</h3>
-								<p className='mt-3 text-sm leading-relaxed text-slate-500'>
-									{post.excerpt}
-								</p>
-								<p className='mt-5 text-xs text-slate-400'>
-									{post.date} &nbsp; • &nbsp; {post.readTime} &nbsp; • &nbsp;{" "}
-									{post.views}
-								</p>
-							</div>
+								<div className='relative h-[180px] w-full'>
+									<Image
+										src={blogImg}
+										alt={post.title}
+										fill
+										className='object-cover'
+									/>
+								</div>
+								<div className='p-6'>
+									<p className='text-sm text-slate-500'>
+										<span className='mr-2 align-middle text-[10px] text-amber-500'>
+											●
+										</span>
+										{post.tag}
+									</p>
+									<h3 className='mt-3 text-base font-semibold leading-snug text-secondary'>
+										{post.title}
+									</h3>
+									<p className='mt-3 text-sm leading-relaxed text-slate-500'>
+										{post.excerpt}
+									</p>
+									<p className='mt-5 text-xs text-slate-400'>
+										{post.date} &nbsp; • &nbsp; {post.readTime} &nbsp; • &nbsp;{" "}
+										{post.views}
+									</p>
+								</div>
 							</article>
 						</Link>
 					))}
