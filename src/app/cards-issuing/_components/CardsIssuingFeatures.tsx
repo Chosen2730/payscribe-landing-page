@@ -65,14 +65,26 @@ const features = [
 	},
 ];
 
+import { motion, useReducedMotion } from "framer-motion";
+import { inViewZoom } from "@/lib/animations";
+
 export function CardsIssuingFeatures() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='bg-white py-16'>
 			<div className='mx-auto container px-5'>
 				<div className='grid gap-8 md:grid-cols-3'>
-					{features.map((feature) => (
-						<div
+					{features.map((feature, idx) => (
+						<motion.div
 							key={feature.title}
+							{...inViewZoom({
+								reduced: reducedMotion,
+								delay: 0.08 + idx * 0.12,
+								duration: 0.9,
+								amount: 0.35,
+							})}
 							className={`rounded-2xl p-8 ${feature.bg}`}
 						>
 							<div
@@ -86,7 +98,7 @@ export function CardsIssuingFeatures() {
 							<p className='mt-4 text-sm leading-relaxed text-slate-600'>
 								{feature.description}
 							</p>
-						</div>
+						</motion.div>
 					))}
 				</div>
 			</div>

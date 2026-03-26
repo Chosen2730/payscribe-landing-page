@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import unifiedGateway from "@/assets/icons/unified.svg";
 import ironclad from "@/assets/icons/ironclad.svg";
 import insights from "@/assets/icons/insights.svg";
@@ -36,11 +38,25 @@ const rows = [
 	},
 ];
 const BusinessServicesSection = () => {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+	const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+	const rowMotion = (from: "left" | "right", delay: number) =>
+		reducedMotion
+			? {}
+			: {
+					initial: { opacity: 0, x: from === "left" ? -80 : 80 },
+					whileInView: { opacity: 1, x: 0 },
+					viewport: { once: false, amount: 0.35 },
+					transition: { duration: 0.9, ease: smoothEase, delay },
+				};
+
 	return (
 		<section className='bg-white py-12'>
 			<div className='space-y-8'>
 				{/* Row 1 — Left-anchored blue, rounded right only */}
-				<div className='flex justify-start'>
+				<motion.div {...rowMotion("left", 0.05)} className='flex justify-start'>
 					<div className='flex w-[58%] items-center justify-between gap-5 rounded-r-[120px] bg-primary py-9 pl-12 pr-9'>
 						<div>
 							<h3 className='text-lg font-semibold text-white'>
@@ -59,10 +75,10 @@ const BusinessServicesSection = () => {
 							className='h-[120px] w-[120px] object-contain'
 						/>
 					</div>
-				</div>
+				</motion.div>
 
 				{/* Row 2 — Right-anchored light, rounded left only */}
-				<div className='flex justify-end'>
+				<motion.div {...rowMotion("right", 0.18)} className='flex justify-end'>
 					<div className='flex w-[58%] items-center justify-between gap-5 rounded-l-[120px] bg-[#EEF4FF] py-9 pl-9 pr-12'>
 						<Image
 							src={ironclad}
@@ -82,10 +98,10 @@ const BusinessServicesSection = () => {
 							</p>
 						</div>
 					</div>
-				</div>
+				</motion.div>
 
 				{/* Row 3 — Left-anchored blue */}
-				<div className='flex justify-start'>
+				<motion.div {...rowMotion("left", 0.3)} className='flex justify-start'>
 					<div className='flex w-[58%] items-center justify-between gap-5 rounded-r-[120px] bg-primary py-9 pl-12 pr-9'>
 						<div>
 							<h3 className='text-lg font-semibold text-white'>
@@ -105,10 +121,10 @@ const BusinessServicesSection = () => {
 							className='h-[120px] w-[120px] object-contain'
 						/>
 					</div>
-				</div>
+				</motion.div>
 
 				{/* Row 4 — Right-anchored light */}
-				<div className='flex justify-end'>
+				<motion.div {...rowMotion("right", 0.42)} className='flex justify-end'>
 					<div className='flex w-[58%] items-center justify-between gap-5 rounded-l-[120px] bg-[#EEF4FF] py-9 pl-9 pr-12'>
 						<Image
 							src={solutions}
@@ -130,7 +146,7 @@ const BusinessServicesSection = () => {
 							</p>
 						</div>
 					</div>
-				</div>
+				</motion.div>
 			</div>
 		</section>
 	);

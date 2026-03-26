@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import fallbackImg from "@/assets/images/blog.jpg";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { heroDropFromTop, inViewZoom } from "@/lib/animations";
 
 type Category = "All" | "Company" | "Product" | "Finance" | "API";
 
@@ -32,6 +34,9 @@ export function PressFeaturedPostsSection({
 		thumbnail: string;
 	}>;
 }) {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	const [activeCategory, setActiveCategory] = useState<Category>("All");
 	const [page, setPage] = useState(0);
 
@@ -72,11 +77,17 @@ export function PressFeaturedPostsSection({
 	return (
 		<section className='bg-white px-5 py-20'>
 			<div className='mx-auto container'>
-				<div className='flex items-start justify-between gap-4'>
+				<motion.div
+					{...heroDropFromTop({ reduced: reducedMotion, delay: 0.05 })}
+					className='flex items-start justify-between gap-4'
+				>
 					<div>
-						<h2 className='text-2xl font-semibold text-secondary sm:text-3xl'>
+						<motion.h2
+							{...heroDropFromTop({ reduced: reducedMotion, delay: 0.12, duration: 0.9 })}
+							className='text-2xl font-semibold text-secondary sm:text-3xl'
+						>
 							Featured Press
-						</h2>
+						</motion.h2>
 					</div>
 
 					<div className='hidden items-center gap-3 sm:flex'>
@@ -99,12 +110,18 @@ export function PressFeaturedPostsSection({
 							<ChevronRightIcon className='h-5 w-5' />
 						</button>
 					</div>
-				</div>
+				</motion.div>
 
 				<div className='mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-					{visible.map((post) => (
-						<article
+					{visible.map((post, idx) => (
+						<motion.article
 							key={post.id}
+							{...inViewZoom({
+								reduced: reducedMotion,
+								delay: 0.08 + idx * 0.08,
+								duration: 0.9,
+								amount: 0.25,
+							})}
 							className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm'
 						>
 							<div className='relative h-[180px] w-full'>
@@ -144,7 +161,7 @@ export function PressFeaturedPostsSection({
 									) : null}
 								</p>
 							</div>
-						</article>
+						</motion.article>
 					))}
 				</div>
 			</div>

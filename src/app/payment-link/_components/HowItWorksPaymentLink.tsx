@@ -1,3 +1,8 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import { heroDropFromTop, inViewZoom } from "@/lib/animations";
+
 const steps = [
 	{
 		number: "1",
@@ -26,17 +31,29 @@ const steps = [
 ];
 
 export function HowItWorksPaymentLink() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='bg-white py-20'>
 			<div className='mx-auto container px-5'>
-				<h2 className='mb-10 text-center text-4xl font-semibold text-secondary'>
+				<motion.h2
+					{...heroDropFromTop({ reduced: reducedMotion, delay: 0.05 })}
+					className='mb-10 text-center text-4xl font-semibold text-secondary'
+				>
 					How It Works.
-				</h2>
+				</motion.h2>
 
 				<div className='grid grid-cols-1 md:grid-cols-2'>
-					{steps.map((step) => (
-						<div
+					{steps.map((step, idx) => (
+						<motion.div
 							key={step.number}
+							{...inViewZoom({
+								reduced: reducedMotion,
+								delay: 0.08 + idx * 0.12,
+								duration: 0.9,
+								amount: 0.25,
+							})}
 							className={`flex min-h-[290px] flex-col items-center justify-center px-10 py-14 text-center ${step.bg}`}
 						>
 							<span className='text-6xl font-semibold leading-none text-transparent [-webkit-text-stroke:2px_#214dc0]'>
@@ -48,7 +65,7 @@ export function HowItWorksPaymentLink() {
 							<p className='mt-4 max-w-md text-base leading-relaxed text-slate-600'>
 								{step.description}
 							</p>
-						</div>
+						</motion.div>
 					))}
 				</div>
 			</div>

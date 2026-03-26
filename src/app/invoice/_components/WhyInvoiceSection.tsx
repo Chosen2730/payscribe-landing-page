@@ -1,12 +1,26 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import invoiceImage from "@/assets/images/invoiceImage.png";
+import { motion, useReducedMotion } from "framer-motion";
+import { heroCtaPulse, inViewFromRight, inViewZoom } from "@/lib/animations";
 
 export function WhyInvoiceSection() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='bg-white py-20'>
 			<div className='mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-5 md:grid-cols-2'>
-				<div>
+				<motion.div
+					{...inViewFromRight({
+						reduced: reducedMotion,
+						delay: 0.06,
+						duration: 0.95,
+						amount: 0.25,
+					})}
+				>
 					<h2 className='text-3xl font-semibold leading-tight text-secondary sm:text-4xl'>
 						Why Payscribe Invoicing
 					</h2>
@@ -40,23 +54,33 @@ export function WhyInvoiceSection() {
 					</div>
 
 					<div className='mt-10'>
-						<Link
-							href='/contact-us'
-							className='inline-flex rounded-full bg-primary px-12 py-4 text-base font-semibold text-white'
-						>
-							Get Started
+						<Link href='/contact-us' className='inline-flex'>
+							<motion.span
+								{...heroCtaPulse(reducedMotion)}
+								className='inline-flex rounded-full bg-primary px-12 py-4 text-base font-semibold text-white'
+							>
+								Get Started
+							</motion.span>
 						</Link>
 					</div>
-				</div>
+				</motion.div>
 
-				<div className='flex justify-center md:justify-end'>
+				<motion.div
+					{...inViewZoom({
+						reduced: reducedMotion,
+						delay: 0.12,
+						duration: 0.95,
+						amount: 0.25,
+					})}
+					className='flex justify-center md:justify-end'
+				>
 					<Image
 						src={invoiceImage}
 						alt='Invoice creation preview'
 						className='h-full w-full max-w-xl object-contain'
 						priority={false}
 					/>
-				</div>
+				</motion.div>
 			</div>
 		</section>
 	);

@@ -1,8 +1,15 @@
+"use client";
+
 import fast from "@/assets/icons/fast.svg";
 import stream from "@/assets/icons/bill.svg";
 import secure from "@/assets/icons/secure.svg";
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
+
 export function BillFeaturesSection() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	const cards = [
 		{
 			icon: fast,
@@ -34,9 +41,17 @@ export function BillFeaturesSection() {
 		<section className='bg-white py-16'>
 			<div className='mx-auto container px-5'>
 				<div className='grid gap-6 md:grid-cols-3'>
-					{cards.map((card) => (
-						<div
+					{cards.map((card, idx) => (
+						<motion.div
 							key={card.title}
+							initial={reducedMotion ? undefined : { opacity: 0, scale: 0.92, y: 16 }}
+							whileInView={reducedMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
+							viewport={{ once: false, amount: 0.35 }}
+							transition={{
+								duration: 0.8,
+								ease: [0.22, 1, 0.36, 1],
+								delay: 0.1 + idx * 0.15,
+							}}
 							className='rounded-3xl p-8 text-center shadow-sm'
 							style={{ backgroundColor: card.bg }}
 						>
@@ -57,7 +72,7 @@ export function BillFeaturesSection() {
 							<p className='mt-3 text-sm leading-relaxed text-slate-600'>
 								{card.description}
 							</p>
-						</div>
+						</motion.div>
 					))}
 				</div>
 			</div>

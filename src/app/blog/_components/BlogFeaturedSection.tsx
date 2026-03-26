@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import featuredImage from "@/assets/images/blog.jpg";
 import latestImage from "@/assets/images/digital.jpg";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import { heroDropFromTop, inViewFadeUp, inViewZoom } from "@/lib/animations";
 
 const latestPosts = [
 	{
@@ -25,11 +29,17 @@ const latestPosts = [
 ];
 
 export function BlogFeaturedSection() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='bg-white px-5 py-20'>
 			<div className='mx-auto grid container gap-7 lg:grid-cols-[1.7fr_1fr]'>
 				<Link href='/blog/gamepride' className='block'>
-					<article className='relative overflow-hidden rounded-[20px]'>
+					<motion.article
+						{...inViewZoom({ reduced: reducedMotion, delay: 0.06, duration: 0.95, amount: 0.25 })}
+						className='relative overflow-hidden rounded-[20px]'
+					>
 					<div className='relative h-[320px] sm:h-[470px]'>
 						<Image
 							src={featuredImage}
@@ -47,17 +57,26 @@ export function BlogFeaturedSection() {
 							Feb 8th &nbsp; • &nbsp; 10 mins read &nbsp; • &nbsp; 500 views
 						</p>
 					</div>
-					</article>
+					</motion.article>
 				</Link>
 
-				<div>
-					<h4 className='mb-5 text-2xl font-semibold text-secondary'>
+				<motion.div {...heroDropFromTop({ reduced: reducedMotion, delay: 0.08 })}>
+					<motion.h4
+						{...heroDropFromTop({ reduced: reducedMotion, delay: 0.14, duration: 0.85 })}
+						className='mb-5 text-2xl font-semibold text-secondary'
+					>
 						Latest Posts
-					</h4>
+					</motion.h4>
 					<div className='space-y-4'>
 						{latestPosts.map((post, idx) => (
-							<article
+							<motion.article
 								key={`${post.title}-${idx}`}
+								{...inViewFadeUp({
+									reduced: reducedMotion,
+									delay: 0.16 + idx * 0.08,
+									duration: 0.8,
+									amount: 0.4,
+								})}
 								className='flex gap-3 rounded-2xl border border-slate-200 bg-white p-3'
 							>
 								<Image
@@ -76,10 +95,10 @@ export function BlogFeaturedSection() {
 										{post.views}
 									</p>
 								</div>
-							</article>
+							</motion.article>
 						))}
 					</div>
-				</div>
+				</motion.div>
 			</div>
 		</section>
 	);

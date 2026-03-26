@@ -1,11 +1,24 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
 import savingsImg from "@/assets/images/savingsImg.png";
+import { motion, useReducedMotion } from "framer-motion";
+import { heroCtaPulse, inViewFromRight, inViewZoom } from "@/lib/animations";
 
 const WhatSavings = () => {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
-		<div className='py-20 grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto items-center'>
-			<div className=''>
+		<div className='container mx-auto grid grid-cols-1 items-center gap-10 py-20 md:grid-cols-2'>
+			<motion.div
+				{...inViewFromRight({
+					reduced: reducedMotion,
+					delay: 0.06,
+					duration: 0.95,
+					amount: 0.25,
+				})}
+			>
 				<h2 className='text-3xl font-semibold leading-tight text-secondary'>
 					What is Savings-as-a-Service?
 				</h2>
@@ -42,17 +55,28 @@ const WhatSavings = () => {
 					</p>
 				</div>
 
-				<button className='mt-10 rounded-full bg-primary px-12 py-4 text-sm font-semibold text-white'>
+				<motion.button
+					type='button'
+					{...heroCtaPulse(reducedMotion)}
+					className='mt-10 rounded-full bg-primary px-12 py-4 text-sm font-semibold text-white'
+				>
 					Get Started
-				</button>
-			</div>
-			<div>
+				</motion.button>
+			</motion.div>
+			<motion.div
+				{...inViewZoom({
+					reduced: reducedMotion,
+					delay: 0.12,
+					duration: 0.95,
+					amount: 0.25,
+				})}
+			>
 				<Image
 					src={savingsImg}
 					alt='savings img'
-					className='w-full h-full object-contain'
+					className='h-full w-full object-contain'
 				/>
-			</div>
+			</motion.div>
 		</div>
 	);
 };

@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState } from "react";
 import blogImg from "@/assets/images/blog.jpg";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import { heroDropFromTop, inViewZoom } from "@/lib/animations";
 
 type Category = "All" | "Company" | "Product" | "Finance" | "API";
 
@@ -22,6 +24,9 @@ type FeaturedPost = {
 const categories: Category[] = ["All", "Company", "Product", "Finance", "API"];
 
 export function BlogFeaturedPostsSection() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	const [activeCategory, setActiveCategory] = useState<Category>("All");
 	const [page, setPage] = useState(0);
 
@@ -114,11 +119,17 @@ export function BlogFeaturedPostsSection() {
 	return (
 		<section className='bg-white px-5 py-20'>
 			<div className='mx-auto container'>
-				<div className='flex items-start justify-between gap-4'>
+				<motion.div
+					{...heroDropFromTop({ reduced: reducedMotion, delay: 0.05 })}
+					className='flex items-start justify-between gap-4'
+				>
 					<div>
-						<h2 className='text-2xl font-semibold text-secondary sm:text-3xl'>
+						<motion.h2
+							{...heroDropFromTop({ reduced: reducedMotion, delay: 0.12, duration: 0.9 })}
+							className='text-2xl font-semibold text-secondary sm:text-3xl'
+						>
 							Featured Posts
-						</h2>
+						</motion.h2>
 						<div className='mt-5 flex flex-wrap items-center gap-6 text-sm'>
 							{categories.map((cat) => {
 								const active = cat === activeCategory;
@@ -163,12 +174,20 @@ export function BlogFeaturedPostsSection() {
 							<ChevronRightIcon className='h-5 w-5' />
 						</button>
 					</div>
-				</div>
+				</motion.div>
 
 				<div className='mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-					{visible.map((post) => (
+					{visible.map((post, idx) => (
 						<Link key={post.id} href='/blog/gamepride' className='block'>
-							<article className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md'>
+							<motion.article
+								{...inViewZoom({
+									reduced: reducedMotion,
+									delay: 0.08 + idx * 0.1,
+									duration: 0.9,
+									amount: 0.25,
+								})}
+								className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md'
+							>
 								<div className='relative h-[180px] w-full'>
 									<Image
 										src={blogImg}
@@ -195,7 +214,7 @@ export function BlogFeaturedPostsSection() {
 										{post.views}
 									</p>
 								</div>
-							</article>
+							</motion.article>
 						</Link>
 					))}
 				</div>

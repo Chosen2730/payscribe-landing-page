@@ -1,3 +1,4 @@
+"use client";
 import { Nav } from "@/app/_components/Nav";
 import { Footer } from "@/app/_components/Footer";
 import { CardsIssuingHero } from "./_components/CardsIssuingHero";

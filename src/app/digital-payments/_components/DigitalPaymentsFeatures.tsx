@@ -1,3 +1,8 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+import { inViewZoom } from "@/lib/animations";
+
 const features = [
 	{
 		title: "Customizable",
@@ -66,13 +71,22 @@ const features = [
 ];
 
 export function DigitalPaymentsFeatures() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='bg-white py-16'>
 			<div className='mx-auto max-w-6xl px-5'>
 				<div className='grid gap-6 md:grid-cols-3 md:gap-8'>
-					{features.map((feature) => (
-						<div
+					{features.map((feature, idx) => (
+						<motion.div
 							key={feature.title}
+							{...inViewZoom({
+								reduced: reducedMotion,
+								delay: 0.08 + idx * 0.12,
+								duration: 0.92,
+								amount: 0.35,
+							})}
 							className={`rounded-2xl p-10 text-center ${feature.bg}`}
 						>
 							<div
@@ -86,7 +100,7 @@ export function DigitalPaymentsFeatures() {
 							<p className='mx-auto mt-4 max-w-sm text-sm leading-relaxed text-slate-600'>
 								{feature.description}
 							</p>
-						</div>
+						</motion.div>
 					))}
 				</div>
 			</div>

@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import cardStack from "@/assets/images/cardstacks.png";
+import { motion, useReducedMotion } from "framer-motion";
+import { inViewFromBottom, inViewFromRight } from "@/lib/animations";
 
 const features = [
 	"100% Whitelabel",
@@ -10,12 +14,23 @@ const features = [
 ];
 
 export default function CardSolutions() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='bg-[#214DC00D] py-16 mt-20'>
 			<div className='mx-auto container px-5'>
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-20 items-center lg:justify-between'>
 					{/* Left: Card stack visual */}
-					<div className='relative w-full'>
+					<motion.div
+						{...inViewFromBottom({
+							reduced: reducedMotion,
+							delay: 0.06,
+							duration: 0.95,
+							amount: 0.3,
+						})}
+						className='relative w-full'
+					>
 						<Image
 							src={cardStack}
 							alt='Virtual cards stack'
@@ -24,10 +39,18 @@ export default function CardSolutions() {
 							height={280}
 							priority={false}
 						/>
-					</div>
+					</motion.div>
 
 					{/* Right: Copy and CTAs */}
-					<div className='max-w-xl'>
+					<motion.div
+						{...inViewFromRight({
+							reduced: reducedMotion,
+							delay: 0.14,
+							duration: 0.95,
+							amount: 0.3,
+						})}
+						className='max-w-xl'
+					>
 						<p className='text-xs font-semibold uppercase tracking-wider text-slate-500'>
 							Complete Card Solutions
 						</p>
@@ -64,7 +87,7 @@ export default function CardSolutions() {
 								Learn More
 							</Link>
 						</div>
-					</div>
+					</motion.div>
 				</div>
 			</div>
 		</section>

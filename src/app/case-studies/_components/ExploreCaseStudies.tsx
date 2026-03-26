@@ -1,7 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import connekt from "@/assets/images/connekit.png";
 import gamekit from "@/assets/images/gamekit.png";
+import { motion, useReducedMotion } from "framer-motion";
+import { heroCtaPulse, heroDropFromTop, inViewZoom } from "@/lib/animations";
 
 const cards = [
 	{
@@ -23,17 +27,29 @@ const cards = [
 ];
 
 const ExploreCaseStudies = () => {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	return (
 		<section className='bg-white py-20'>
 			<div className='mx-auto container px-5'>
-				<h2 className='text-left text-2xl font-semibold text-secondary sm:text-3xl'>
+				<motion.h2
+					{...heroDropFromTop({ reduced: reducedMotion, delay: 0.05 })}
+					className='text-left text-2xl font-semibold text-secondary sm:text-3xl'
+				>
 					Explore case studies
-				</h2>
+				</motion.h2>
 
 				<div className='mt-10 grid gap-8 md:grid-cols-2'>
-					{cards.map((card) => (
-						<div
+					{cards.map((card, idx) => (
+						<motion.div
 							key={card.title}
+							{...inViewZoom({
+								reduced: reducedMotion,
+								delay: 0.08 + idx * 0.12,
+								duration: 0.9,
+								amount: 0.25,
+							})}
 							className={`rounded-3xl ${card.bg} px-10 py-10 text-center shadow-sm`}
 						>
 							<div className='mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl'>
@@ -50,14 +66,16 @@ const ExploreCaseStudies = () => {
 								{card.description}
 							</p>
 							<div className='mt-8 flex justify-center'>
-								<Link
-									href={card.href}
-									className={`inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-semibold text-white ${card.buttonBg}`}
-								>
-									Get Started
+								<Link href={card.href} className='inline-flex'>
+									<motion.span
+										{...heroCtaPulse(reducedMotion)}
+										className={`inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-semibold text-white ${card.buttonBg}`}
+									>
+										Get Started
+									</motion.span>
 								</Link>
 							</div>
-						</div>
+						</motion.div>
 					))}
 				</div>
 			</div>

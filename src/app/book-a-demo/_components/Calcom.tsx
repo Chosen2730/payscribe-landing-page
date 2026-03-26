@@ -8,8 +8,13 @@
 
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { inViewZoom } from "@/lib/animations";
 
 export function Calcom() {
+	const prefersReducedMotion = useReducedMotion();
+	const reducedMotion = !!prefersReducedMotion;
+
 	useEffect(() => {
 		(async function () {
 			const cal = await getCalApi({ namespace: "15min" });
@@ -21,11 +26,18 @@ export function Calcom() {
 		})();
 	}, []);
 	return (
-		<Cal
-			namespace='15min'
-			calLink='payscribe/15min'
-			style={{ width: "100%", height: "100%", overflow: "scroll" }}
-			config={{ layout: "month_view" }}
-		/>
+		<motion.div
+			{...inViewZoom({ reduced: reducedMotion, delay: 0.06, duration: 0.95, amount: 0.2 })}
+			className='mx-auto container px-5 pb-20'
+		>
+			<div className='overflow-hidden rounded-3xl bg-white shadow-sm'>
+				<Cal
+					namespace='15min'
+					calLink='payscribe/15min'
+					style={{ width: "100%", height: "760px", overflow: "scroll" }}
+					config={{ layout: "month_view" }}
+				/>
+			</div>
+		</motion.div>
 	);
 }
