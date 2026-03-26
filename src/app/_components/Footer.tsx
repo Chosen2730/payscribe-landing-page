@@ -125,7 +125,11 @@ export function Footer() {
 								</Link>
 							</li>
 							<li>Compliance</li>
-							<li>Book a demo</li>
+							<li>
+								<Link href='/book-a-demo' className='hover:text-white'>
+									Book a demo
+								</Link>
+							</li>
 							<li>
 								<Link href='/use-case' className='hover:text-white'>
 									Use case

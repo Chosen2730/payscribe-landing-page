@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 
 import left1 from "@/assets/images/left1.png";
 import left2 from "@/assets/images/left2.png";
@@ -179,13 +180,15 @@ export function Hero() {
 					>
 						Create A Free Account
 					</motion.button>
-					<motion.button
-						whileHover={reducedMotion ? undefined : { y: -2, scale: 1.02 }}
-						transition={{ duration: 0.22 }}
-						className='rounded-full bg-blue-100 px-10 py-4 text-sm font-semibold text-primary sm:text-base'
-					>
-						Book a Demo
-					</motion.button>
+					<Link href='/book-a-demo' className='inline-flex'>
+						<motion.span
+							whileHover={reducedMotion ? undefined : { y: -2, scale: 1.02 }}
+							transition={{ duration: 0.22 }}
+							className='rounded-full bg-blue-100 px-10 py-4 text-sm font-semibold text-primary sm:text-base'
+						>
+							Book a Demo
+						</motion.span>
+					</Link>
 				</motion.div>
 			</motion.div>
 		</main>

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export function ContactUsHero() {
 	return (
 		<main className='business-hero px-5 py-24 md:py-32'>
@@ -83,8 +85,8 @@ export function ContactUsHero() {
 					</div>
 
 					<div className='flex justify-center pt-2'>
-						<button
-							type='submit'
+						<Link
+							href='/book-a-demo'
 							className='inline-flex items-center gap-2 rounded-full bg-white px-8 py-3 text-sm font-semibold text-secondary'
 						>
 							Book a Demo
@@ -101,7 +103,7 @@ export function ContactUsHero() {
 									d='M14 5l7 7m0 0l-7 7m7-7H3'
 								/>
 							</svg>
-						</button>
+						</Link>
 					</div>
 				</form>
 			</div>

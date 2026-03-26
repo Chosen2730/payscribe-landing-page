@@ -1,5 +1,6 @@
 import whiteBg from "@/assets/images/white-bg.png";
 import Image from "next/image";
+import Link from "next/link";
 export function ForBusinessHero() {
 	return (
 		<main className='business-hero flex items-center px-5 py-24 md:py-32'>
@@ -23,9 +24,12 @@ export function ForBusinessHero() {
 					<button className='rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white'>
 						Create A Free Account
 					</button>
-					<button className='rounded-full bg-white/10 px-8 py-3 text-sm font-semibold text-slate-100'>
+					<Link
+						href='/book-a-demo'
+						className='rounded-full bg-white/10 px-8 py-3 text-sm font-semibold text-slate-100'
+					>
 						Book a Demo
-					</button>
+					</Link>
 				</div>
 			</div>
 			<Image
