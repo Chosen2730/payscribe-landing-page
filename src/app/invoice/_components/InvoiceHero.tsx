@@ -6,6 +6,8 @@ import whiteBg from "@/assets/images/white-bg.png";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroCtaPulse, heroDropFromTop } from "@/lib/animations";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 export function InvoiceHero() {
 	const prefersReducedMotion = useReducedMotion();
 	const reducedMotion = !!prefersReducedMotion;
@@ -47,7 +49,12 @@ export function InvoiceHero() {
 					{...heroDropFromTop({ reduced: reducedMotion, delay: 0.38, duration: 0.85 })}
 					className='mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row'
 				>
-					<Link href='/contact-us' className='inline-flex'>
+					<Link
+						href={SIGNUP_URL}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='inline-flex'
+					>
 						<motion.span
 							{...heroCtaPulse(reducedMotion)}
 							className='rounded-full bg-primary px-10 py-3 text-sm font-semibold text-white'

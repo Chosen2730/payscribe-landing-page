@@ -6,6 +6,8 @@ import service1 from "@/assets/images/service1.png";
 import service2 from "@/assets/images/service2.png";
 import { inViewFromLeft, inViewFromTop } from "@/lib/animations";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 const ServiceSection = () => {
 	const prefersReducedMotion = useReducedMotion();
 	const reducedMotion = !!prefersReducedMotion;
@@ -80,9 +82,14 @@ const ServiceSection = () => {
 								</li>
 							))}
 						</ul>
-						<button className='mt-8 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white'>
+						<a
+							href={SIGNUP_URL}
+							target='_blank'
+							rel='noopener noreferrer'
+							className='mt-8 inline-flex rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white'
+						>
 							Create A Free Account
-						</button>
+						</a>
 					</div>
 
 					{/* Dotted separator */}
@@ -121,9 +128,14 @@ const ServiceSection = () => {
 								</li>
 							))}
 						</ul>
-						<button className='mt-8 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white'>
+						<a
+							href={SIGNUP_URL}
+							target='_blank'
+							rel='noopener noreferrer'
+							className='mt-8 inline-flex rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white'
+						>
 							Create A Free Account
-						</button>
+						</a>
 					</div>
 				</motion.div>
 			</div>

@@ -5,6 +5,8 @@ import savingsImg from "@/assets/images/savingsImg.png";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroCtaPulse, inViewFromRight, inViewZoom } from "@/lib/animations";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 const WhatSavings = () => {
 	const prefersReducedMotion = useReducedMotion();
 	const reducedMotion = !!prefersReducedMotion;
@@ -55,13 +57,19 @@ const WhatSavings = () => {
 					</p>
 				</div>
 
-				<motion.button
-					type='button'
-					{...heroCtaPulse(reducedMotion)}
-					className='mt-10 rounded-full bg-primary px-12 py-4 text-sm font-semibold text-white'
+				<a
+					href={SIGNUP_URL}
+					target='_blank'
+					rel='noopener noreferrer'
+					className='inline-flex mt-10'
 				>
-					Get Started
-				</motion.button>
+					<motion.span
+						{...heroCtaPulse(reducedMotion)}
+						className='rounded-full bg-primary px-12 py-4 text-sm font-semibold text-white'
+					>
+						Get Started
+					</motion.span>
+				</a>
 			</motion.div>
 			<motion.div
 				{...inViewZoom({

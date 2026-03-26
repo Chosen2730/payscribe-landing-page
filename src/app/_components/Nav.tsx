@@ -6,6 +6,9 @@ import logo from "@/assets/images/logo.png";
 import logoWhite from "@/assets/images/logo-white.png";
 import Link from "next/link";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+const LOGIN_URL = "https://app.payscribe.ng/login";
+
 export const Nav = ({
 	variant = "default",
 }: {
@@ -39,12 +42,22 @@ export const Nav = ({
 				</nav>
 
 				<div className='hidden items-center gap-4 sm:flex'>
-					<button className='rounded-full bg-primary px-7 py-3 text-sm font-semibold text-white'>
+					<Link
+						href={SIGNUP_URL}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='rounded-full bg-primary px-7 py-3 text-sm font-semibold text-white'
+					>
 						Create A Free Account
-					</button>
-					<button className='rounded-full bg-blue-100 px-8 py-3 text-sm font-semibold text-primary'>
+					</Link>
+					<Link
+						href={LOGIN_URL}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='rounded-full bg-blue-100 px-8 py-3 text-sm font-semibold text-primary'
+					>
 						Sign In
-					</button>
+					</Link>
 				</div>
 
 				<button
@@ -85,12 +98,22 @@ export const Nav = ({
 						<Link href='/blog'>Blog</Link>
 					</nav>
 					<div className='mt-4 flex flex-col gap-3'>
-						<button className='w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-white'>
+						<Link
+							href={SIGNUP_URL}
+							target='_blank'
+							rel='noopener noreferrer'
+							className='w-full rounded-full bg-primary px-7 py-3 text-sm font-semibold text-white text-center'
+						>
 							Create A Free Account
-						</button>
-						<button className='w-full rounded-full bg-blue-100 px-8 py-3 text-sm font-semibold text-primary'>
+						</Link>
+						<Link
+							href={LOGIN_URL}
+							target='_blank'
+							rel='noopener noreferrer'
+							className='w-full rounded-full bg-blue-100 px-8 py-3 text-sm font-semibold text-primary text-center'
+						>
 							Sign In
-						</button>
+						</Link>
 					</div>
 				</div>
 			)}

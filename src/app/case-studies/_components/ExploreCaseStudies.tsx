@@ -7,6 +7,8 @@ import gamekit from "@/assets/images/gamekit.png";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroCtaPulse, heroDropFromTop, inViewZoom } from "@/lib/animations";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 const cards = [
 	{
 		image: gamekit,
@@ -66,7 +68,13 @@ const ExploreCaseStudies = () => {
 								{card.description}
 							</p>
 							<div className='mt-8 flex justify-center'>
-								<Link href={card.href} className='inline-flex'>
+								<Link
+									href={card.href === "/contact-us" ? SIGNUP_URL : card.href}
+									{...(card.href === "/contact-us"
+										? { target: "_blank", rel: "noopener noreferrer" }
+										: {})}
+									className='inline-flex'
+								>
 									<motion.span
 										{...heroCtaPulse(reducedMotion)}
 										className={`inline-flex items-center justify-center rounded-full px-8 py-3 text-sm font-semibold text-white ${card.buttonBg}`}

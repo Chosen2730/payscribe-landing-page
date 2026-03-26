@@ -43,6 +43,8 @@ const FEATURES = [
 	},
 ];
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 export function DevelopersCanDoSection() {
 	const [activeTab, setActiveTab] = useState<(typeof TABS)[number]>("Lending");
 
@@ -88,7 +90,9 @@ export function DevelopersCanDoSection() {
 								{feature.description}
 							</p>
 							<a
-								href='#'
+								href={SIGNUP_URL}
+								target='_blank'
+								rel='noopener noreferrer'
 								className='mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary underline underline-offset-2'
 							>
 								Read API Documentation

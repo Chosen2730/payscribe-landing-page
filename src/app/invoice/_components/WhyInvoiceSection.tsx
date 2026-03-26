@@ -6,6 +6,8 @@ import invoiceImage from "@/assets/images/invoiceImage.png";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroCtaPulse, inViewFromRight, inViewZoom } from "@/lib/animations";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 export function WhyInvoiceSection() {
 	const prefersReducedMotion = useReducedMotion();
 	const reducedMotion = !!prefersReducedMotion;
@@ -54,7 +56,12 @@ export function WhyInvoiceSection() {
 					</div>
 
 					<div className='mt-10'>
-						<Link href='/contact-us' className='inline-flex'>
+						<Link
+							href={SIGNUP_URL}
+							target='_blank'
+							rel='noopener noreferrer'
+							className='inline-flex'
+						>
 							<motion.span
 								{...heroCtaPulse(reducedMotion)}
 								className='inline-flex rounded-full bg-primary px-12 py-4 text-base font-semibold text-white'

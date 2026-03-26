@@ -4,6 +4,7 @@ import whiteBg from "@/assets/images/white-bg.png";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
 export function ForBusinessHero() {
 	const prefersReducedMotion = useReducedMotion();
 	const reducedMotion = !!prefersReducedMotion;
@@ -57,8 +58,13 @@ export function ForBusinessHero() {
 					transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.32 }}
 					className='mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-center'
 				>
-					<motion.button
-						type='button'
+					<Link
+						href={SIGNUP_URL}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='inline-flex'
+					>
+						<motion.span
 						animate={
 							reducedMotion
 								? undefined
@@ -79,7 +85,8 @@ export function ForBusinessHero() {
 						className='rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white'
 					>
 						Create A Free Account
-					</motion.button>
+						</motion.span>
+					</Link>
 					<Link
 						href='/book-a-demo'
 						className='rounded-full bg-white/10 px-8 py-3 text-sm font-semibold text-slate-100'

@@ -6,6 +6,8 @@ import fintech from "@/assets/icons/fintech.svg";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroCtaPulse, inViewFromRight, inViewZoom } from "@/lib/animations";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 const FintechSection = () => {
 	const prefersReducedMotion = useReducedMotion();
 	const reducedMotion = !!prefersReducedMotion;
@@ -37,7 +39,12 @@ const FintechSection = () => {
 							compliant.
 						</p>
 						<div className='mt-8'>
-							<Link href='/contact-us' className='inline-flex'>
+							<Link
+								href={SIGNUP_URL}
+								target='_blank'
+								rel='noopener noreferrer'
+								className='inline-flex'
+							>
 								<motion.span
 									{...heroCtaPulse(reducedMotion)}
 									className='inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white'

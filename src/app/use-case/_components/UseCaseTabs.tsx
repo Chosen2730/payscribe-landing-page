@@ -5,6 +5,8 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { heroCtaPulse, heroDropFromTop, inViewFadeUp, inViewZoom } from "@/lib/animations";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 type UseCaseKey = "Fintech" | "Health" | "Retail" | "Logistics" | "Gaming";
 
 const USE_CASES: {
@@ -186,7 +188,12 @@ const UseCaseTabs = () => {
 										</div>
 
 										<div className='mt-8'>
-											<Link href='/contact-us' className='inline-flex'>
+											<Link
+												href={SIGNUP_URL}
+												target='_blank'
+												rel='noopener noreferrer'
+												className='inline-flex'
+											>
 												<motion.span
 													{...heroCtaPulse(reducedMotion)}
 													className='inline-flex items-center justify-center rounded-full bg-primary px-10 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90'

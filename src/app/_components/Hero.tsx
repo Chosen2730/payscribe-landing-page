@@ -11,6 +11,8 @@ import right1 from "@/assets/images/right1.png";
 import right2 from "@/assets/images/right2.png";
 import right3 from "@/assets/images/right3.png";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 export function Hero() {
 	const heroRef = useRef<HTMLElement | null>(null);
 	const prefersReducedMotion = useReducedMotion();
@@ -171,7 +173,13 @@ export function Hero() {
 							})}
 					className='mt-10 flex flex-col gap-4 sm:flex-row'
 				>
-					<motion.button
+					<Link
+						href={SIGNUP_URL}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='inline-flex'
+					>
+						<motion.span
 						whileHover={
 							reducedMotion ? undefined : { y: -2, scale: 1.02, boxShadow: "0 14px 30px rgba(33,77,192,0.28)" }
 						}
@@ -179,7 +187,8 @@ export function Hero() {
 						className='rounded-full bg-primary px-10 py-4 text-sm font-semibold text-white sm:text-base'
 					>
 						Create A Free Account
-					</motion.button>
+						</motion.span>
+					</Link>
 					<Link href='/book-a-demo' className='inline-flex'>
 						<motion.span
 							whileHover={reducedMotion ? undefined : { y: -2, scale: 1.02 }}

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroCtaPulse, heroDropFromTop } from "@/lib/animations";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 export function FaqHero() {
 	const prefersReducedMotion = useReducedMotion();
 	const reducedMotion = !!prefersReducedMotion;
@@ -35,7 +37,12 @@ export function FaqHero() {
 					{...heroDropFromTop({ reduced: reducedMotion, delay: 0.34, duration: 0.85 })}
 					className='mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row'
 				>
-					<Link href='#' className='inline-flex'>
+					<Link
+						href={SIGNUP_URL}
+						target='_blank'
+						rel='noopener noreferrer'
+						className='inline-flex'
+					>
 						<motion.span
 							{...heroCtaPulse(reducedMotion)}
 							className='rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white'

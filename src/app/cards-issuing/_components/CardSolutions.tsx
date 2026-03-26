@@ -6,6 +6,8 @@ import cardStack from "@/assets/images/cardstacks.png";
 import { motion, useReducedMotion } from "framer-motion";
 import { inViewFromBottom, inViewFromRight } from "@/lib/animations";
 
+const SIGNUP_URL = "https://app.payscribe.ng/auth/create";
+
 const features = [
 	"100% Whitelabel",
 	"Global Coverage",
@@ -75,13 +77,17 @@ export default function CardSolutions() {
 						</ul>
 						<div className='mt-8 flex flex-wrap gap-4'>
 							<Link
-								href='#'
+								href={SIGNUP_URL}
+								target='_blank'
+								rel='noopener noreferrer'
 								className='rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white'
 							>
 								Sign Up
 							</Link>
 							<Link
-								href='#'
+								href={SIGNUP_URL}
+								target='_blank'
+								rel='noopener noreferrer'
 								className='rounded-full border-2 border-primary/30 bg-primary/5 px-8 py-3 text-sm font-semibold text-primary'
 							>
 								Learn More
