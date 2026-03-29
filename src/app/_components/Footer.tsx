@@ -122,7 +122,14 @@ export function Footer() {
 									Cards Issuing
 								</Link>
 							</li>
-							<li>Bills Payments</li>
+							<li>
+								<Link
+									href='/?integration=bills#integration'
+									className='hover:text-white'
+								>
+									Bills Payments
+								</Link>
+							</li>
 							<li>
 								<Link href='/digital-payments' className='hover:text-white'>
 									Digital Payments
@@ -144,8 +151,8 @@ export function Footer() {
 								</Link>
 							</li>
 							<li>
-								<Link href='/invoice' className='hover:text-white'>
-									Invoice
+								<Link href='/invoicing' className='hover:text-white'>
+									Invoicing
 								</Link>
 							</li>
 						</ul>

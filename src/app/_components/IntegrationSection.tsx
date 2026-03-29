@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import logo from "@/assets/images/app-icon.png";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
@@ -11,7 +12,13 @@ import card3 from "@/assets/images/wallet3.png";
 import card4 from "@/assets/images/wallet4.png";
 import card5 from "@/assets/images/wallet5.png";
 import card6 from "@/assets/images/wallet6.png";
-export function IntegrationSection() {
+
+/** 4th card in the carousel (0-based index 3) — Bills Payment */
+const BILLS_PAYMENT_CARD_INDEX = 3;
+
+function IntegrationSectionInner() {
+	const searchParams = useSearchParams();
+
 	const cards = useMemo(
 		() => [
 			{
@@ -76,6 +83,35 @@ export function IntegrationSection() {
 	const [direction, setDirection] = useState(1);
 	const activeCard = cards[activeIndex];
 
+	useEffect(() => {
+		const integration = searchParams.get("integration");
+		const cardParam = searchParams.get("integrationCard");
+		let targetIndex: number | null = null;
+
+		if (integration === "bills") {
+			targetIndex = BILLS_PAYMENT_CARD_INDEX;
+		} else if (cardParam) {
+			const n = parseInt(cardParam, 10);
+			if (!Number.isNaN(n) && n >= 1 && n <= cards.length) {
+				targetIndex = n - 1;
+			}
+		}
+
+		if (targetIndex === null) return;
+
+		setDirection(1);
+		setActiveIndex(targetIndex);
+
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				document.getElementById("integration")?.scrollIntoView({
+					behavior: "smooth",
+					block: "start",
+				});
+			});
+		});
+	}, [searchParams, cards.length]);
+
 	const goPrev = () => {
 		setDirection(-1);
 		setActiveIndex((prev) => (prev - 1 + cards.length) % cards.length);
@@ -87,7 +123,10 @@ export function IntegrationSection() {
 	};
 
 	return (
-		<section className='mx-auto mt-24 w-full max-w-6xl px-6'>
+		<section
+			id='integration'
+			className='mx-auto mt-24 w-full max-w-6xl scroll-mt-24 px-6'
+		>
 			<div className='flex flex-col items-center text-center'>
 				<span className='inline-flex items-center gap-2 rounded-full bg-white px-4 py-1 text-xs font-semibold text-primary shadow-sm'>
 					<span className='text-yellow-400'>⚡</span>
@@ -214,5 +253,13 @@ export function IntegrationSection() {
 				</button>
 			</div>
 		</section>
+	);
+}
+
+export function IntegrationSection() {
+	return (
+		<Suspense fallback={null}>
+			<IntegrationSectionInner />
+		</Suspense>
 	);
 }
