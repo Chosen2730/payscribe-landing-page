@@ -19,6 +19,7 @@ export type PressFeaturedPost = {
 	readTime: string;
 	views: string;
 	thumbnail?: string;
+	url?: string;
 };
 
 const categories: Category[] = ["All", "Company", "Product", "Finance", "API"];
@@ -32,6 +33,7 @@ export function PressFeaturedPostsSection({
 		readTime: string;
 		summary: string;
 		thumbnail: string;
+		url?: string;
 	}>;
 }) {
 	const prefersReducedMotion = useReducedMotion();
@@ -53,6 +55,7 @@ export function PressFeaturedPostsSection({
 				readTime: p.readTime,
 				views: "—",
 				thumbnail: p.thumbnail,
+				url: p.url,
 			})),
 		[posts],
 	);
@@ -124,23 +127,51 @@ export function PressFeaturedPostsSection({
 							})}
 							className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm'
 						>
-							<div className='relative h-[180px] w-full'>
-								{post.thumbnail?.trim() ? (
-									<img
-										src={post.thumbnail}
-										alt={post.title}
-										className='h-[180px] w-full object-cover'
-										loading='lazy'
-									/>
-								) : (
-									<Image
-										src={fallbackImg}
-										alt={post.title}
-										fill
-										className='object-cover'
-									/>
-								)}
-							</div>
+							{post.url ? (
+								<a
+									href={post.url}
+									target='_blank'
+									rel='noreferrer'
+									className='block'
+									aria-label={post.title}
+								>
+									<div className='relative h-[180px] w-full'>
+										{post.thumbnail?.trim() ? (
+											<img
+												src={post.thumbnail}
+												alt={post.title}
+												className='h-[180px] w-full object-cover'
+												loading='lazy'
+											/>
+										) : (
+											<Image
+												src={fallbackImg}
+												alt={post.title}
+												fill
+												className='object-cover'
+											/>
+										)}
+									</div>
+								</a>
+							) : (
+								<div className='relative h-[180px] w-full'>
+									{post.thumbnail?.trim() ? (
+										<img
+											src={post.thumbnail}
+											alt={post.title}
+											className='h-[180px] w-full object-cover'
+											loading='lazy'
+										/>
+									) : (
+										<Image
+											src={fallbackImg}
+											alt={post.title}
+											fill
+											className='object-cover'
+										/>
+									)}
+								</div>
+							)}
 							<div className='p-6'>
 								<p className='text-sm text-slate-500'>
 									<span className='mr-2 align-middle text-[10px] text-amber-500'>
@@ -148,9 +179,20 @@ export function PressFeaturedPostsSection({
 									</span>
 									{post.tag}
 								</p>
-								<h3 className='mt-3 text-base font-semibold leading-snug text-secondary'>
-									{post.title}
-								</h3>
+								{post.url ? (
+									<a
+										href={post.url}
+										target='_blank'
+										rel='noreferrer'
+										className='mt-3 block text-base font-semibold leading-snug text-secondary hover:underline'
+									>
+										{post.title}
+									</a>
+								) : (
+									<h3 className='mt-3 text-base font-semibold leading-snug text-secondary'>
+										{post.title}
+									</h3>
+								)}
 								<p className='mt-3 text-sm leading-relaxed text-slate-500'>
 									{post.excerpt}
 								</p>

@@ -6,15 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "create-admin": "node ./scripts/create-admin.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
+    "@tiptap/extension-image": "^3.21.0",
+    "@tiptap/extension-link": "^3.21.0",
+    "@tiptap/extension-placeholder": "^3.21.0",
+    "@tiptap/extension-underline": "^3.21.0",
+    "@tiptap/react": "^3.21.0",
+    "@tiptap/starter-kit": "^3.21.0",
+    "axios": "^1.14.0",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.9.0",
+    "dotenv": "^17.3.1",
     "framer-motion": "^12.38.0",
+    "jose": "^6.2.2",
     "lucide-react": "^0.577.0",
+    "mongodb": "^6.21.0",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-quilljs": "^2.0.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -6,7 +6,11 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroDropFromTop, inViewZoom } from "@/lib/animations";
 
-export function BlogHero() {
+export function BlogHero({
+	hero,
+}: {
+	hero: null | { slug: string; title: string; coverImageUrl?: string | null; publishedAt?: string | Date | null };
+}) {
 	const prefersReducedMotion = useReducedMotion();
 	const reducedMotion = !!prefersReducedMotion;
 
@@ -32,24 +36,35 @@ export function BlogHero() {
 					</motion.p>
 				</motion.div>
 
-				<Link href='/blog/gamepride' className='block'>
+				<Link href={hero ? `/blog/${hero.slug}` : "/blog"} className='block'>
 					<motion.article
 						{...inViewZoom({ reduced: reducedMotion, delay: 0.18, duration: 0.95, amount: 0.3 })}
 						className='mt-10 rounded-[22px]'
 					>
 					<div className='overflow-hidden rounded-[22px]'>
-						<Image
-							src={blogCover}
-							alt='How Gamepride built a seamless gaming experience'
-							className='h-[280px] w-full object-cover sm:h-[420px]'
-							priority
-						/>
+						{hero?.coverImageUrl?.trim() ? (
+							<Image
+								src={hero.coverImageUrl}
+								alt={hero.title}
+								className='h-[280px] w-full object-cover sm:h-[420px]'
+								priority
+								width={1600}
+								height={900}
+							/>
+						) : (
+							<Image
+								src={blogCover}
+								alt={hero?.title ?? "Blog cover"}
+								className='h-[280px] w-full object-cover sm:h-[420px]'
+								priority
+							/>
+						)}
 					</div>
 					<h2 className='mt-6 text-xl font-medium leading-tight text-secondary'>
-						How Gamepride Built a Seamless Gaming Experience with Payscribe
+						{hero?.title ?? "Explore the latest from Payscribe"}
 					</h2>
 					<p className='mt-3 text-base text-slate-500'>
-						4 Min &nbsp;&middot;&nbsp; August 19, 2022
+						{hero?.publishedAt ? new Date(hero.publishedAt).toLocaleDateString() : "—"}
 					</p>
 					</motion.article>
 				</Link>

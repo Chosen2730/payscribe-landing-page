@@ -16,96 +16,55 @@ type FeaturedPost = {
 	tag: string;
 	title: string;
 	excerpt: string;
-	date: string;
-	readTime: string;
+	date?: string;
+	readTime?: string;
 	views: string;
+	slug: string;
+	coverImageUrl?: string | null;
 };
 
 const categories: Category[] = ["All", "Company", "Product", "Finance", "API"];
 
-export function BlogFeaturedPostsSection() {
+export function BlogFeaturedPostsSection({
+	posts,
+}: {
+	posts: Array<{
+		id: string;
+		title: string;
+		slug: string;
+		excerpt?: string;
+		category: Exclude<Category, "All">;
+		coverImageUrl?: string | null;
+		publishedAt?: string | Date | null;
+	}>;
+}) {
 	const prefersReducedMotion = useReducedMotion();
 	const reducedMotion = !!prefersReducedMotion;
 
 	const [activeCategory, setActiveCategory] = useState<Category>("All");
 	const [page, setPage] = useState(0);
 
-	const posts = useMemo<FeaturedPost[]>(
-		() => [
-			{
-				id: "1",
-				category: "Product",
-				tag: "Machine Learning",
-				title: "Welcome to Wired Wits: Transforming Entrepreneurship with AI.",
-				excerpt:
-					"Lorem ipsum dolor sit amet. Facilisi volutpat sed massa in mi dui. Vel morbi quis morbi.",
-				date: "Feb 8th",
-				readTime: "10 mins read",
-				views: "500 views",
-			},
-			{
-				id: "2",
-				category: "Finance",
-				tag: "Machine Learning",
-				title: "Welcome to Wired Wits: Transforming Entrepreneurship with AI.",
-				excerpt:
-					"Lorem ipsum dolor sit amet. Facilisi volutpat sed massa in mi dui. Vel morbi quis morbi.",
-				date: "Feb 8th",
-				readTime: "10 mins read",
-				views: "500 views",
-			},
-			{
-				id: "3",
-				category: "Company",
-				tag: "Machine Learning",
-				title: "Welcome to Wired Wits: Transforming Entrepreneurship with AI.",
-				excerpt:
-					"Lorem ipsum dolor sit amet. Facilisi volutpat sed massa in mi dui. Vel morbi quis morbi.",
-				date: "Feb 8th",
-				readTime: "10 mins read",
-				views: "500 views",
-			},
-			{
-				id: "4",
-				category: "API",
-				tag: "Machine Learning",
-				title: "Welcome to Wired Wits: Transforming Entrepreneurship with AI.",
-				excerpt:
-					"Lorem ipsum dolor sit amet. Facilisi volutpat sed massa in mi dui. Vel morbi quis morbi.",
-				date: "Feb 8th",
-				readTime: "10 mins read",
-				views: "500 views",
-			},
-			{
-				id: "5",
-				category: "Product",
-				tag: "Machine Learning",
-				title: "Welcome to Wired Wits: Transforming Entrepreneurship with AI.",
-				excerpt:
-					"Lorem ipsum dolor sit amet. Facilisi volutpat sed massa in mi dui. Vel morbi quis morbi.",
-				date: "Feb 8th",
-				readTime: "10 mins read",
-				views: "500 views",
-			},
-			{
-				id: "6",
-				category: "Finance",
-				tag: "Machine Learning",
-				title: "Welcome to Wired Wits: Transforming Entrepreneurship with AI.",
-				excerpt:
-					"Lorem ipsum dolor sit amet. Facilisi volutpat sed massa in mi dui. Vel morbi quis morbi.",
-				date: "Feb 8th",
-				readTime: "10 mins read",
-				views: "500 views",
-			},
-		],
-		[],
+	const featured = useMemo<FeaturedPost[]>(
+		() =>
+			posts.map((p) => ({
+				id: p.id,
+				category: p.category,
+				tag: p.category,
+				title: p.title,
+				excerpt: p.excerpt ?? "",
+				date: p.publishedAt ? new Date(p.publishedAt).toLocaleDateString() : "",
+				readTime: "",
+				views: "—",
+				slug: p.slug,
+				coverImageUrl: p.coverImageUrl,
+			})),
+		[posts],
 	);
 
 	const filtered = useMemo(() => {
-		if (activeCategory === "All") return posts;
-		return posts.filter((p) => p.category === activeCategory);
-	}, [activeCategory, posts]);
+		if (activeCategory === "All") return featured;
+		return featured.filter((p) => p.category === activeCategory);
+	}, [activeCategory, featured]);
 
 	useEffect(() => {
 		setPage(0);
@@ -178,7 +137,7 @@ export function BlogFeaturedPostsSection() {
 
 				<div className='mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
 					{visible.map((post, idx) => (
-						<Link key={post.id} href='/blog/gamepride' className='block'>
+						<Link key={post.id} href={`/blog/${post.slug}`} className='block'>
 							<motion.article
 								{...inViewZoom({
 									reduced: reducedMotion,
@@ -189,12 +148,22 @@ export function BlogFeaturedPostsSection() {
 								className='overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md'
 							>
 								<div className='relative h-[180px] w-full'>
-									<Image
-										src={blogImg}
-										alt={post.title}
-										fill
-										className='object-cover'
-									/>
+									{post.coverImageUrl?.trim() ? (
+										<Image
+											src={post.coverImageUrl}
+											alt={post.title}
+											fill
+											className='object-cover'
+											sizes='(min-width: 1024px) 360px, 100vw'
+										/>
+									) : (
+										<Image
+											src={blogImg}
+											alt={post.title}
+											fill
+											className='object-cover'
+										/>
+									)}
 								</div>
 								<div className='p-6'>
 									<p className='text-sm text-slate-500'>
@@ -210,8 +179,13 @@ export function BlogFeaturedPostsSection() {
 										{post.excerpt}
 									</p>
 									<p className='mt-5 text-xs text-slate-400'>
-										{post.date} &nbsp; • &nbsp; {post.readTime} &nbsp; • &nbsp;{" "}
-										{post.views}
+										{post.date ? (
+											<>
+												{post.date} &nbsp; • &nbsp; {post.views}
+											</>
+										) : (
+											post.views
+										)}
 									</p>
 								</div>
 							</motion.article>
