@@ -11,6 +11,11 @@ const LoginSchema = z.object({
   password: z.string().min(1).optional(),
 });
 
+function isAllowedAdminEmail(value: string) {
+  const v = value.trim().toLowerCase();
+  return v.endsWith("@payscribe.ng") || v.endsWith("@payscribe.co");
+}
+
 export async function POST(req: NextRequest) {
   try {
     const raw = await req.json().catch(() => ({}));
@@ -29,6 +34,7 @@ export async function POST(req: NextRequest) {
 
     // Option B: email/password login
     if (!body.email || !body.password) return error("Missing email/password", 400);
+    if (!isAllowedAdminEmail(body.email)) return error("Unauthorized email domain", 403);
     const db = await getDb();
     const admin = await db.collection("admins").findOne({ email: body.email.toLowerCase() });
     if (!admin?.passwordHash) return error("Invalid credentials", 401);

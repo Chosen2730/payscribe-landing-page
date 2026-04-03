@@ -1,8 +1,38 @@
+import type { Metadata } from "next";
 import { Footer } from "@/app/_components/Footer";
 import { Nav } from "@/app/_components/Nav";
 import Link from "next/link";
 import Image from "next/image";
 import { getPublishedPostBySlugFromApi } from "../_api/blog";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const post = await getPublishedPostBySlugFromApi(slug);
+    if (!post) {
+      return {
+        title: "Blog post",
+        description: "Payscribe blog post.",
+        keywords: ["Payscribe", "blog", "payments", "fintech"],
+      };
+    }
+    return {
+      title: post.title,
+      description: post.excerpt || "Payscribe blog post.",
+      keywords: ["Payscribe", "blog", post.category, "payments", "fintech", "API"],
+    };
+  } catch {
+    return {
+      title: "Blog post",
+      description: "Payscribe blog post.",
+      keywords: ["Payscribe", "blog", "payments", "fintech"],
+    };
+  }
+}
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

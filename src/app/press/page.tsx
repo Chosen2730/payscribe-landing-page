@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import { Nav } from "@/app/_components/Nav";
 import { Footer } from "@/app/_components/Footer";
 import { PressHero } from "./_components/PressHero";
 import { PressFeaturedPostsSection } from "./_components/PressFeaturedPostsSection";
 import Link from "next/link";
 import { getPressPostsFromApi } from "./_api/press";
+
+export const metadata: Metadata = {
+	title: "Press",
+	description: "External press coverage, announcements, and featured articles about Payscribe.",
+	keywords: ["Payscribe", "press", "news", "announcements", "media", "fintech", "payments"],
+};
 
 export default async function PressPage() {
 	let pressPosts: Awaited<ReturnType<typeof getPressPostsFromApi>> = [];

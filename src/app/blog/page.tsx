@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Footer } from "@/app/_components/Footer";
 import { Nav } from "@/app/_components/Nav";
 import { BlogHero } from "./_components/BlogHero";
@@ -6,6 +7,12 @@ import { BlogFeaturedPostsSection } from "./_components/BlogFeaturedPostsSection
 import { BlogNewsletterSection } from "./_components/BlogNewsletterSection";
 import Link from "next/link";
 import { getPublishedPostsFromApi } from "./_api/blog";
+
+export const metadata: Metadata = {
+	title: "Blog",
+	description: "Read product updates, insights, and announcements from Payscribe.",
+	keywords: ["Payscribe", "blog", "fintech", "payments", "product updates", "API", "stablecoin", "card issuing"],
+};
 
 export default async function BlogPage() {
 	let posts: Awaited<ReturnType<typeof getPublishedPostsFromApi>> = [];

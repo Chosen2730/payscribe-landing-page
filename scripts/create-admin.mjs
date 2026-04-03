@@ -26,6 +26,16 @@ if (!email || !password || !providedKey) {
 	process.exit(1);
 }
 
+function isAllowedAdminEmail(value) {
+	const v = String(value || "").trim().toLowerCase();
+	return v.endsWith("@payscribe.ng") || v.endsWith("@payscribe.co");
+}
+
+if (!isAllowedAdminEmail(email)) {
+	console.error("Unauthorized email domain. Use @payscribe.ng or @payscribe.co");
+	process.exit(1);
+}
+
 const expectedKey = process.env.X_AUTH_ADMIN_KEY;
 if (!expectedKey) {
 	console.error("Missing X_AUTH_ADMIN_KEY in env.");

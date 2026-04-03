@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import logo from "@/assets/images/app-icon.png";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import card1 from "@/assets/images/wallet.png";
 import card2 from "@/assets/images/wallet2.png";
 import card3 from "@/assets/images/wallet3.png";
@@ -29,6 +30,7 @@ function IntegrationSectionInner() {
 				image: card1,
 				fromBgColor: "#214DC0",
 				toBgColor: "#0F245A",
+				learnMoreHref: "/digital-payments",
 			},
 			{
 				tag: "Card  Issuing",
@@ -38,6 +40,7 @@ function IntegrationSectionInner() {
 				image: card2,
 				fromBgColor: "#8621C0",
 				toBgColor: "#0F245A",
+				learnMoreHref: "/cards-issuing",
 			},
 			{
 				tag: "Savings and Investment",
@@ -47,6 +50,7 @@ function IntegrationSectionInner() {
 				fromBgColor: "#105B12",
 				toBgColor: "#0F245A",
 				image: card3,
+				learnMoreHref: "/savings-as-a-service",
 			},
 			{
 				tag: "Bills Payment",
@@ -65,6 +69,7 @@ function IntegrationSectionInner() {
 				fromBgColor: "#5B5910",
 				toBgColor: "#0F245A",
 				image: card5,
+				learnMoreHref: "/stable-coin-rails",
 			},
 			{
 				tag: "Automated Payouts",
@@ -74,6 +79,7 @@ function IntegrationSectionInner() {
 				fromBgColor: "#000000",
 				toBgColor: "#0F245A",
 				image: card6,
+				learnMoreHref: "/invoicing",
 			},
 		],
 		[],
@@ -187,12 +193,21 @@ function IntegrationSectionInner() {
 										{activeCard.paragraph}
 									</p>
 									<div className='mt-6 flex flex-wrap gap-4'>
-										<button className='rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary'>
+										<Link
+											href={"https://app.payscribe.ng/login"}
+											target='_blank'
+											className='rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary'
+										>
 											Get Started
-										</button>
-										<button className='rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white'>
-											Learn More
-										</button>
+										</Link>
+										{activeCard.learnMoreHref ? (
+											<Link
+												href={activeCard.learnMoreHref}
+												className='rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10'
+											>
+												Learn More
+											</Link>
+										) : null}
 									</div>
 								</motion.div>
 							</AnimatePresence>
