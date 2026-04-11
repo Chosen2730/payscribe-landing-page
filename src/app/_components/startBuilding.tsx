@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import cardBg from "@/assets/images/card-bg.png";
+import cardGroup from "@/assets/images/cardGroup.png";
 import { inViewZoom } from "@/lib/animations";
 
 const StartBuilding = () => {
@@ -10,7 +11,7 @@ const StartBuilding = () => {
 	const reducedMotion = !!prefersReducedMotion;
 
 	return (
-		<section className='relative bg-primary overflow-hidden py-20 md:py-28'>
+		<section className='relative overflow-hidden bg-linear-to-r from-[#10379F] to-[#051339] py-20 md:py-28 flex items-center justify-center h-[500px]'>
 			<div className='container relative mx-auto flex flex-col items-start px-5 md:flex-row md:items-center md:justify-between'>
 				<motion.div
 					{...inViewZoom({ reduced: reducedMotion, delay: 0.1, duration: 1 })}
@@ -36,9 +37,9 @@ const StartBuilding = () => {
 				</motion.div>
 			</div>
 			<Image
-				src={cardBg}
+				src={cardGroup}
 				alt='cardBg'
-				className='w-full h-full object-cover absolute top-0 right-0'
+				className='w-fit h-[440px] absolute bottom-0 right-10'
 				width={500}
 				height={500}
 			/>

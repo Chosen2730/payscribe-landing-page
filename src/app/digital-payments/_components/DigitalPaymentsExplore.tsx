@@ -11,10 +11,11 @@ import {
 	inViewZoom,
 } from "@/lib/animations";
 
-import transfer1 from "@/assets/images/digital.jpg";
-import transfer2 from "@/assets/images/transfer2.png";
-import wallet from "@/assets/images/wallet.png";
-import map from "@/assets/images/map.png";
+import transfer1 from "@/assets/images/lending.png";
+import transfer2 from "@/assets/images/payrol.png";
+import wallet from "@/assets/images/marketplace.png";
+import map from "@/assets/images/mobility.png";
+import digital from "@/assets/images/digital-payment.png";
 
 type TabKey =
 	| "Lending"
@@ -44,26 +45,26 @@ const CONTENT: Record<
 	Payroll: {
 		title: "Payroll",
 		description:
-			"Pay salaries and contractor fees programmatically with bulk transfers, scheduled payouts, and clear reporting. Reduce manual work and keep your team paid on time, every time.",
+			"Integrate Payscribe Payout API into your payroll system to instantly pay employees, contractors, or freelancers. Set up automated salary transfers in any currency, ensuring timely, hassle-free payments that keep your workforce happy and productive",
 		image: transfer2,
 	},
 	Marketplace: {
 		title: "Marketplace",
 		description:
-			"Split payments and pay out to vendors seamlessly. Manage escrow-like flows, handle refunds, and reconcile transactions across multiple sellers with ease.",
+			"Empower your marketplace by integrating Payscribe Payout API to automate vendor payments. Instantly pay your sellers, whether it’s for commissions, earnings, or refunds, all through a simple, secure, and scalable payout system that helps grow your platform.",
 		image: map,
 	},
 	Mobility: {
 		title: "Mobility",
 		description:
-			"Power real-time driver payouts, wallet top-ups, and automated settlements. Build reliable cashflow experiences for riders, drivers, and fleets across regions.",
+			"Integrate Payscribe Payout API to instantly pay your drivers, delivery personnel, or service providers as they complete their tasks. This ensures real-time, hassle-free payouts that enhance efficiency and support the fast-paced demands of the mobility industry.",
 		image: wallet,
 	},
 	"Digital Payments": {
 		title: "Digital Payments",
 		description:
-			"Accept and disburse payments across multiple channels while keeping balances, transfers, and reconciliation in one platform. Scale collections and payouts for your product without complexity.",
-		image: wallet,
+			"Leverage Payscribe Payout API to streamline digital payments by instantly transferring funds to users, merchants, or service providers. With seamless integration, you can offer fast, secure payouts across borders, boosting your payment platform’s reliability and user satisfaction.",
+		image: digital,
 	},
 };
 
@@ -81,13 +82,21 @@ export function DigitalPaymentsExplore() {
 					className='mx-auto max-w-4xl text-center'
 				>
 					<motion.p
-						{...heroDropFromTop({ reduced: reducedMotion, delay: 0.1, duration: 0.75 })}
+						{...heroDropFromTop({
+							reduced: reducedMotion,
+							delay: 0.1,
+							duration: 0.75,
+						})}
 						className='text-xs font-semibold uppercase tracking-[0.2em] text-slate-500'
 					>
 						Explore
 					</motion.p>
 					<motion.h2
-						{...heroDropFromTop({ reduced: reducedMotion, delay: 0.18, duration: 0.9 })}
+						{...heroDropFromTop({
+							reduced: reducedMotion,
+							delay: 0.18,
+							duration: 0.9,
+						})}
 						className='mt-3 text-2xl font-semibold text-secondary sm:text-3xl md:text-4xl'
 					>
 						Payscribe offers virtual debit cards designed to cater to diverse
@@ -96,7 +105,12 @@ export function DigitalPaymentsExplore() {
 				</motion.div>
 
 				<motion.div
-					{...inViewFadeUp({ reduced: reducedMotion, delay: 0.08, duration: 0.85, amount: 0.35 })}
+					{...inViewFadeUp({
+						reduced: reducedMotion,
+						delay: 0.08,
+						duration: 0.85,
+						amount: 0.35,
+					})}
 					className='mt-10 flex flex-wrap items-center justify-center gap-2'
 				>
 					<div className='flex flex-wrap items-center justify-center gap-2 rounded-full bg-slate-50 p-2 ring-1 ring-slate-200'>
@@ -122,13 +136,20 @@ export function DigitalPaymentsExplore() {
 
 				<div className='mt-12 grid items-center gap-10 lg:grid-cols-2'>
 					<motion.div
-						{...inViewZoom({ reduced: reducedMotion, delay: 0.12, duration: 0.95, amount: 0.25 })}
+						{...inViewZoom({
+							reduced: reducedMotion,
+							delay: 0.12,
+							duration: 0.95,
+							amount: 0.25,
+						})}
 						className='relative overflow-hidden rounded-3xl bg-slate-100 shadow-sm'
 					>
 						<AnimatePresence mode='wait'>
 							<motion.div
 								key={active}
-								initial={reducedMotion ? undefined : { opacity: 0, scale: 0.985 }}
+								initial={
+									reducedMotion ? undefined : { opacity: 0, scale: 0.985 }
+								}
 								animate={reducedMotion ? undefined : { opacity: 1, scale: 1 }}
 								exit={reducedMotion ? undefined : { opacity: 0, scale: 0.99 }}
 								transition={
